@@ -1,0 +1,67 @@
+@charset "UTF-8";
+@import url(https://cdn.rawgit.com/openhiun/hangul/14c0f6faa2941116bb53001d6a7dcd5e82300c3f/nanumbarungothic.css);
+
+/* RESET */
+* {box-sizing:border-box; text-decoration:none; letter-spacing: -0.25px;}
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1; word-break:keep-all;
+}
+a:visited{color:#333;}
+a{color:#333;}
+a dt{color:#333;}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+.clearfix:after{content:''; display:block; clear:both;}
+img {vertical-align:top;}
+.hidden{position:fixed; left:0; top:-9999999em; visibility:hidden;}
+
+
+/* LAYOUT */
+.container{width:1200px; margin:0 auto;}
+.content_container{margin-left:239px; margin-top:60px; padding:20px; background-color:#f1f1f1; padding-bottom:248px;}
+
+/* TYPOGRAPHY */
+body{
+	font-family: 'Nanum Barun Gothic', sans-serif; color:#333;
+	font-size:16px; font-weight:400;
+}
+/* LOGO */
+.logo img{cursor: pointer;} 

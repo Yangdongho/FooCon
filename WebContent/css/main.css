@@ -1,0 +1,103 @@
+@charset "UTF-8";
+
+/* 메인비주얼 */
+.search-area {
+	width:100%; height:500px; text-align: center; padding-top:61px;
+	background-image:url('../img/junk.png');
+	background-repeat:no-repeat;
+	background-position:center center; background-size:cover;
+}
+
+.visual_content_container{
+	position:relative; width:800px; height:100%; margin:0 auto;
+}
+
+.visual_content_container p{
+	position:absolute; top:0; left:0; text-align: left;
+	font-size:60px; padding-top:95px; color:#fff; z-index:2;
+	font-weight:500; line-height:70px; 
+}
+
+.search_box{
+	width:800px; height:100px; position:absolute; bottom:0%; left:50%;
+	transform:translate(-50%,-50%); z-index:1; 
+	
+/* 	box-shadow:0 2px 13px rgba(0,0,0,.13); */
+
+}
+
+.search_box label{
+	display:block; position:relative; cursor:pointer;
+}
+
+.search_box label > img{
+	position:absolute; top:18px; left:14px; bottom:0; margin:0 auto; width:28px;
+}
+
+.search_box label > input{
+	background-color:#fff; padding:0 53px; height:65px;
+	width:100%; color:#757575; vertical-align:middle; font-size:18px;
+}
+
+.search_box input[type='submit']{
+	width:150px; height:65px; position:absolute; top:0; bottom:0; right:0;
+	background:#ff493d; background:-webkit-gradient(linear, left top, right bottom, color-stop(0%, #ff493d), color-stop(100%, #ff1069)); 
+	font-size:18px; font-weight:600; color:#fff; text-align:center; cursor:pointer; border:0; 
+}
+
+/* .search_box button{ */
+/* 	width:150px; height:65px; position:absolute; top:0; bottom:0; right:0; */
+/* 	background:#ff493d; background:-webkit-gradient(linear, left top, right bottom, color-stop(0%, #ff493d), color-stop(100%, #ff1069));  */
+/* 	font-size:18px; font-weight:600; color:#fff; text-align:center; cursor:pointer; border:0;  */
+/* } */
+
+.main_visual_opacity{
+	width:100%; height:500px; position:absolute; top:0; left:0;
+	background-color:rgba(0,0,0,0.2);
+}
+
+/* 추천 푸드트럭 */
+.mainrecommend-area {
+	width:100%; text-align: left; 
+}
+.mainrecommend_header{
+	width:100%; text-align:center; margin:71px auto 30px;
+}
+.mainrecommend_header h2{
+	font-size:36px; 
+}
+.mainrecommend_header p{
+	margin-top:5px; font-size:20px; font-weight: 350;
+}
+.mainrecommend_list{
+	width:100%;
+}
+.mainrecommend_list ul{
+	width:1200px; padding-top:30px;
+}
+.mainrecommend_list ul li{
+	width:33.33%; padding-right:1.33%; float:left; margin-bottom:30px; cursor: pointer;
+}
+.mainrecommend_list ul li img{
+	width:100%; height:220px; border:1px solid #e5e5e5;
+}
+.mainrecommend_list ul li dl{
+	width:100%; margin-top:16px;
+}
+.mainrecommend_list ul li dl dt{
+	font-size:28px; margin-bottom:8px;
+}
+.mainrecommend_list ul li dl dd{
+	float:left; font-size:14px; padding-right:10px;  
+}
+.mainrecommend_list ul li dl dd span{
+	color: #F9D922; font-size:18px; line-height:13px; letter-spacing:-2px;
+}
+.mainrecommend_list ul li dl dd span:first-child{
+	padding-left:2px; 
+}
+
+/* 메인페이지 상단 검색창 지우려고 하는 것 */
+.header_search .searchBlock{
+display: none;
+} 

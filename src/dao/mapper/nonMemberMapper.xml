@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.NonMemberDao">
+	<insert id="nonMemberInsert" parameterType="map">
+		<selectKey order="BEFORE" keyProperty="NONMEMBERNUM" resultType="string">
+			select 'NM'||seq_nonMember.nextval from dual
+		</selectKey>
+		insert  
+		  into nonMember 
+		values (#{NONMEMBERNUM},
+		   	   #{NONMEMBEREMAIL},
+		   	   #{NONMEMBERPHONE},
+		   	   null,null)
+	</insert>
+</mapper>

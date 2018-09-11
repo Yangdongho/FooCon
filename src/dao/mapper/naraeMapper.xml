@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dao.NaraeDao">
+
+<!-- 	brandownerNUM을 통해서 brandNUM을 가져온다 -->
+	<select id="selectBrand" parameterType="String" resultType="String">
+	
+		select brandnum
+		from brand b
+		where b.brandownernum = #{value}
+		
+	</select>
+
+	<select id="adminMasterMainOrderManage" resultType="map">
+		
+		select NVL(count(*), 0) as orderTotalCount, 
+		       NVL(count(decode(delivregicheck,'D', '1')), 0) as nDeliverTotalCount,  
+		       NVL(count(decode(delivregicheck,'R', '1')), 0) as nRegiTotalCount
+		from orderinfo
+		
+	</select>
+	
+	<select id="adminMasterMainOrderManageDeliver" resultType="int">
+	
+		select count(*) as nDeliCancleCount
+		from orderinfo
+		where CANCLESTATUS = 'Y' and DELIVREGICHECK = 'D'
+	
+	</select>
+	
+	<select id="adminMasterMainOrderManageReservation" resultType="int">
+		
+		select count(*) as nReserCancleCount
+		from orderinfo
+		where CANCLESTATUS = 'Y' and DELIVREGICHECK = 'R'
+	
+	</select>
+	
+	<select id="adminMasterMainReviewManage" resultType="int">
+		
+		select NVL(count(*), 0) as nReviewTotal
+		from review
+		
+	</select>
+	
+	<select id="adminMasterMainTodayReviewManage" resultType="int">
+		
+		select NVL(count(*), 0) as nReviewToday
+		from review
+		where to_char( REVIEWREGDATE, 'yyyymmdd' ) = to_char( sysdate, 'yyyymmdd')
+	
+	</select>
+	
+	<select id="adminMasterMainInquireManage" resultType="int">
+		
+		select NVL(count(*), 0) as nInquireTotal
+		from inquire
+			
+	</select>
+	
+	<select id="adminMasterMainTodayInquireManage" resultType="int">
+		
+		select NVL(count(*), 0) as nInquireToday
+		from inquire
+		where to_char( inquireDate, 'yyyymmdd' ) = to_char( sysdate, 'yyyymmdd')
+			
+	</select>
+	
+	<select id="adminMasterMainAdManage" resultType="int">
+		
+		select NVL(count(*), 0) as nAdTotal
+		from adInquire
+		
+	</select>
+	
+	<select id="adminMasterMainTodayAdManage" resultType="int">
+		
+		select NVL(count(*), 0) as nAdToday
+		from adInquire
+		where to_char( inpuireRegDate, 'yyyymmdd' ) = to_char( sysdate, 'yyyymmdd')
+	
+	</select>
+	
+	<select id="adminMasterMainSales" resultType="int">
+		
+		select NVL(sum(paymentAmount), 0) as nTotalSum
+		from OrderInfo
+	
+	</select>
+	
+	<select id="adminMasterMonthMainSales" resultType="int">
+		
+		select NVL(sum(paymentAmount), 0) as nMonthSum
+		from OrderInfo
+		where orderDate between TRUNC(sysdate,'MM') and LAST_DAY(sysdate)
+		
+	</select>
+
+
+
+	<select id="adminBrandMainOrderManage" parameterType="String" resultType="map">
+		
+		select NVL(count(*), 0) as orderTotalCount, 
+		       NVL(count(decode(delivregicheck,'D', '1')), 0) as deliverTotalCount,  
+		       NVL(count(decode(delivregicheck,'R', '1')), 0) as regiTotalCount
+		 from orderinfo
+		 where brandnum = #{value}
+		
+	</select>
+	
+	<select id="adminBrandMainOrderManageDeliver" parameterType="String" resultType="int">
+	
+		select NVL(count(*), 0) as nDeliCancleCount
+		from orderinfo
+		where CANCLESTATUS = 'Y' and DELIVREGICHECK = 'D' and brandnum = #{value}
+	
+	</select>
+	
+	<select id="adminBrandMainOrderManageReservation" parameterType="String" resultType="int">
+		
+		select NVL(count(*), 0) as nReserCancleCount
+		from orderinfo
+		where CANCLESTATUS = 'Y' and DELIVREGICHECK = 'R' and brandnum = #{value}
+	
+	</select>
+	
+	<select id="adminBrandMainReviewManage" parameterType="String" resultType="int">
+		
+		select NVL(count(*), 0) as reviewTotal
+		from review
+		where brandnum = #{value}
+		
+	</select>
+	
+	<select id="adminBrandMainTodayReviewManage" parameterType="String" resultType="int">
+		
+		select NVL(count(*), 0) as reviewToday
+		from review
+		where to_char( REVIEWREGDATE, 'yyyymmdd' ) = to_char( sysdate, 'yyyymmdd') and brandnum = #{value}
+	
+	</select>
+	
+
+	
+	<select id="adminBrandMainSales" parameterType="String" resultType="int">
+		
+		select NVL(sum(paymentAmount),0) as totalSum
+		from OrderInfo
+		where brandnum = #{value}
+	
+	</select>
+	
+	<select id="adminBrandMonthMainSales" parameterType="String" resultType="int">
+		
+		select NVL(sum(paymentAmount),0) as monthSum
+		from OrderInfo
+		where orderDate between TRUNC(sysdate,'MM') and LAST_DAY(sysdate) and brandnum = #{value}
+		
+	</select>
+
+</mapper>

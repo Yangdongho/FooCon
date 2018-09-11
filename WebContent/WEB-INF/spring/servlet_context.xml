@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xsi:schemaLocation="http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.3.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	<context:component-scan base-package="controller"></context:component-scan>
+	<mvc:annotation-driven></mvc:annotation-driven>
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" id="viewResolver">
+		<property value="/jsp/" name="prefix" />
+		<property value=".jsp" name="suffix" />
+	</bean>
+	<mvc:resources location="/img/" mapping="/img/**"></mvc:resources>
+	<mvc:resources location="/img/" mapping="/gif/**"></mvc:resources>
+	<mvc:resources location="/css/" mapping="/css/**"></mvc:resources>
+	<mvc:resources location="/js/" mapping="/js/**"></mvc:resources>
+	<mvc:resources location="/jsp/" mapping="/jsp/**"></mvc:resources>
+	<mvc:resources location="/img/" mapping="/png/**"></mvc:resources>
+	
+	
+	<!--  <mvc:interceptors>
+	<mvc:interceptor>
+			<mvc:mapping path="/board/question"/>
+			<mvc:mapping path="/point/pointList"/>
+			<mvc:mapping path="/order/orderList"/>
+			<mvc:mapping path="/brand/interest"/>
+			
+			<ref bean="interceptor"/>
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/admin/**"/>
+			<ref bean="adminInterceptor"/>
+		</mvc:interceptor>
+	
+
+	</mvc:interceptors>  -->
+	
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"></bean>
+	
+	<websocket:message-broker application-destination-prefix="/client">
+		<websocket:stomp-endpoint path="/review">
+			<websocket:sockjs/>
+		</websocket:stomp-endpoint>
+		<websocket:simple-broker prefix="/topic"/>
+	</websocket:message-broker>
+
+</beans>

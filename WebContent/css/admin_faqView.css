@@ -1,0 +1,56 @@
+@charset "UTF-8";
+
+/* 공지사항 뷰페이지 */
+.faq-list-area {width:100%; text-align: left;}
+
+.submenu-list{display:inline-block; border:1px solid #ccc; margin-bottom:20px;}
+.submenu-list a{
+	display:inline-block; text-align:center; float:left;
+	padding:10px 25px;  border-right:1px solid #ccc; cursor: pointer;
+}
+.submenu-list a:last-child{border-right:none;}
+.submenu-list a:last-child{background-color:#fff; font-weight:500;}
+
+form{width:100%; margin-top:10px; position: relative;}
+form > input[type=text]{
+	width:100%; height:100%; padding:4px 8px; background-color:#fff;
+	border:1px solid #ddd; font-size:1.5em; 
+}
+form > ul {width:100%; margin-top:10px;}
+form > ul li{float:left; padding-right:30px; text-indent:3px;}
+form > ul li:last-child{padding-right:0px;}
+form .edit{width:100%; height:500px; background-color:red; margin-top:20px;}
+form .faq_view_option{width:100%; margin-top:10px; vertical-align: middle;}
+
+form .btn > input[type=submit]{
+	display:inline-block; width:220px; height:45px; margin:0 auto; 
+	margin-top:20px;  text-decoration:none; font-weight:600; 
+	border:1px solid #ccc; border-radius:2px; background:#f7f7f7; text-shadow:none; 
+	font-size:13px; line-height:normal; cursor:pointer; outline:0; 
+}
+form .btn > input[type=submit]{
+	display:inline-block; width:220px; height:45px; margin:0 auto; 
+	margin-top:20px;  text-decoration:none; font-weight:600; 
+	border:1px solid #ccc; border-radius:2px; background:#f7f7f7; text-shadow:none; 
+	font-size:13px; line-height:normal; cursor:pointer; outline:0; 
+}
+form .btn > input[type=button]{
+	display:inline-block; width:220px; height:45px; margin:0 auto; 
+	margin-top:20px; text-decoration:none; font-weight:600; 
+	border:1px solid #ccc; border-radius:2px; background:#f7f7f7; text-shadow:none; 
+	font-size:13px; line-height:normal; cursor:pointer; outline:0; 
+}
+.faqContent{
+	resize: none; width:100%;min-height:700px; border: 1px solid #ccc; margin: 10px; margin-left:0;padding: 5px; line-height: 20px;
+}
+.btn{
+	text-align: center;
+	
+}
+
+
+
+
+
+
+

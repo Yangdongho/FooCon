@@ -1,0 +1,191 @@
+@charset "UTF-8";
+
+/* 2차 메뉴 */
+.two-depth-menu {
+	width: 100%;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    margin-top: 3.2%;
+    padding: 1% 1.1%;
+    background-color: #F2F2F2;
+}
+.two-depth-menu ul{width:57.6%; height:100%; margin:0 auto;}
+.two-depth-menu ul li{float:left; margin-right:2.9%;}
+.two-depth-menu ul li a{padding:20px; position:relative;}
+.menu_mypage{font-weight:600;}
+.menu_mypage:before{
+	content:''; width:68%; display:block; position:absolute; top:82%; left:16%;
+	font-weight:600; border-bottom:2px solid #333;
+}
+
+/* 포인트 게시판*/
+.mypage-area{width:100%; text-align: center;}
+h3{padding:5%; width:100%; font-size:300%; color:#444;}
+
+.mypage-area div ul li a.email{
+	font-weight:600;
+}
+
+.mypage-area div ul li a.nick{
+	font-weight:600;
+}
+
+.mypage-area div ul li a.password{
+	font-weight:600;
+}
+
+.mypage-area div ul li a.phoneNum{
+	font-weight:600;
+}
+
+.mypage-area div ul li a.notice{
+	padding: 10px 0 20px 10px;
+    color: #999;
+    font-family: gulim;
+    line-height: 180%;
+    font-size: 12px;
+    padding-left: 13%;
+}
+
+.memberInfo{
+	border:1px solid #ccc; width: 50%; margin-bottom: 20px; margin-left: 25%;
+}
+
+.memberInfo ul{
+	width: 100%;
+}
+
+.memberInfo ul li{
+	float: left; width:50%; padding: 2%; text-align: left; padding-right: 0%; margin-right: 12%; font-size: 1.2em;
+}
+
+.memberInfo ul li a.notice{
+	float: left; width:330%; text-align: left;
+}
+
+.memberInfo ul li.d01{
+	padding-right: 4%;
+    width: 10%;
+	margin-right: 6%;
+    margin-left: 22%;
+}
+
+.memberInfo ul li.d03{
+	padding-right: 4%;
+    width: 10%;
+	margin-right: 6%;
+    margin-left: 22%;
+}
+
+.memberInfo ul li.d05{
+	padding-right: 4%;
+    width: 10%;
+	margin-right: 6%;
+    margin-left: 22%;
+}
+
+.memberInfo ul li.d07{
+	padding-right: 4%;
+    width: 10%;
+	margin-right: 6%;
+    margin-left: 22%;
+}
+
+.memberInfo ul li .width{ 
+	width:10%;
+}
+
+.memberInfo ul h4{
+    display: block;
+    font-size: 2.3em;
+    margin-top: 1.33em;
+    margin-bottom: 1.33em;
+    margin-left: 0;
+    margin-right: 0;
+    font-weight: bold;
+}
+
+.memberInfo ul li button{
+	display: inline-block;
+    cursor: pointer;
+    background: linear-gradient(to right, #ff1069 0%, #ff493d 100%);
+    color: #fff;
+    outline: 0;
+    border: 1px solid #ccc;
+    font-weight: 400;
+}
+
+.loginConnect{
+	border:1px solid #ccc; width: 50%; margin-bottom: 20px; margin-left: 25%;
+}
+
+.loginConnect ul{
+	width: 100%;
+}
+
+.loginConnect ul li{
+	float: left; width:10%; padding: 2%; text-align: left; margin-left: 5%;
+}
+
+.loginConnect ul li .width{ 
+	width:10%;
+}
+
+.loginConnect ul h4{
+    display: block;
+    font-size: 1.4em;
+    margin-top: 1.33em;
+    margin-bottom: 1.33em;
+    margin-left: 0;
+    margin-right: 0;
+    font-weight: bold;
+}
+
+.withdraw{
+	border:1px solid #ccc; 
+	width: 50%;
+    margin-bottom: 20px;
+    margin-left: 25%;
+}
+
+.withdraw ul{
+	width: 100%;
+}
+
+.withdraw ul li{
+	float: left;
+    width: 60%;
+    padding: 2%;
+    text-align: left;
+    margin-right: 3%;
+    margin-left: 21%;
+}
+
+.withdraw ul li .width{ 
+	width:10%;
+}
+
+.withdraw ul h4{
+    display: block;
+    font-size: 1.4em;
+    margin-top: 1.33em;
+    margin-bottom: 1.33em;
+    margin-left: 0;
+    margin-right: 0;
+    font-weight: bold;
+}
+
+.withdraw ul li input#WDpasswordCheck{
+	width: 45%;
+}
+
+.withdraw ul li input[type=submit]{
+	display: inline-block;
+    cursor: pointer;
+    background: linear-gradient(to right, #ff1069 0%, #ff493d 100%);
+    color: #fff;
+    outline: 0;
+    border: 1px solid #ccc;
+    font-weight: 400;
+}
+

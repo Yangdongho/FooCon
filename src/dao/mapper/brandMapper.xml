@@ -1,0 +1,639 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.BrandDao">
+
+	<!-- 브랜드 상세페이지에 뿌릴 셀렉트문 -->
+	<select id="brandViewInfoView" parameterType="string" resultType="map">
+		select * 
+		  from brandInfoView
+		 where brandNUM=#{BRANDNUM}
+	</select>
+	
+	<select id="adminBrandView" parameterType="string" resultType="map">
+		select * 
+		  from brandInfoView
+		 where brandOwnerNUM=#{BRANDOWNERNUM}
+	</select>
+	
+	<select id="brandSelectOne" parameterType="string" resultType="map">
+		select * 
+		  from brand
+		 where brandOwnerNUM=#{BRANDOWNERNUM}
+	</select>
+	
+	<select id="adminBrandViewSeconds" parameterType="string" resultType="map">
+		select * 
+		  from brandInfoView
+		 where brandNUM=#{BRANDNUM}
+	</select>
+
+	<select id="brandMenuView" parameterType="string" resultType="map">
+		select brandNUM,
+			   brandMenuNUM, 
+			   menuCode, 
+			   NVL(menuName,'없음') as menuName, 
+			   menuPrice, 
+			   menuTurn,
+			   quitMenu  
+   	      from brandMenuView
+   	     where menuTurn != 0
+   	     	   and quitMenu='N'
+   	     	   and brandNUM=#{BRANDNUM}
+   	     order by menuTurn desc	   
+	</select>
+	
+	<select id="brandInterestView" parameterType="map" resultType="map">
+		select * 
+		  from brandInterestView 
+		 where memberNUM=#{MEMBERNUM} and brandNUM=#{BRANDNUM}
+	</select>
+	
+	<select id="brandInterestTotalCountView" parameterType="string" resultType="int">
+		select count(memberNUM) 
+		  from brandInterestView 
+		 where brandNUM=#{BRANDNUM}
+	</select>
+	
+	<delete id="brandInterestDelete" parameterType="map">
+		delete 
+		  from favorBrand 
+		 where memberNUM=#{MEMBERNUM} and brandNUM=#{BRANDNUM}	
+	</delete>
+	
+	<insert id="brandInterestInsert" parameterType="map">
+		insert 
+		  into favorBrand 
+		values ('FB'||seq_favorBrand.nextval,#{MEMBERNUM},#{BRANDNUM},null,null)
+	</insert>
+	
+	<select id="brandImage" parameterType="string" resultType="map">
+		select * 
+		  from brandImage 
+		 where brandNUM=#{BRANDNUM}
+	</select>
+	
+	
+	<update id="brandOwnerUpdate" parameterType="map">
+		update brandOwner
+		   set ownerPhone=#{OWNERPHONE}
+		 where brandOwnerNUM=#{BRANDOWNERNUM}
+	</update>
+	
+	
+	<insert id="brandInsert" parameterType="map">
+		<selectKey order="BEFORE" keyProperty="BRANDNUM" resultType="string">
+			select 'B'||seq_brand.nextval from dual
+		</selectKey>
+		insert 
+		  into brand
+		values (#{BRANDNUM},
+		   	   #{BRANDOWNERNUM},
+		   	   #{BRANDNAME},
+		   	   #{EXPOSURELEVEL},
+		   	   #{BRANDOPENTIME},
+		   	   #{BRANDPHONE},
+		   	   <include refid="brandDeliveryStatus"/>,
+		   	   <include refid="brandReservationStatus"/>,
+		   	   #{DELIVERMINIMUMAMOUNT},
+		   	   #{BRANDINTRODUCE},
+		   	   #{DELIVERAREA},
+		   	   0,
+		   	   null)
+	</insert>
+	
+	<update id="brandUpdate" parameterType="map">
+		update brand
+		   set brandName=#{BRANDNAME},
+		   	   EXPOSURELEVEL=#{EXPOSURELEVEL},
+		   	   brandOpenTime=#{BRANDOPENTIME},
+		   	   brandPhone=#{BRANDPHONE},
+		   	   brandDeliveryStatus=<include refid="brandDeliveryStatus"/>,
+		   	   brandReservationStatus=<include refid="brandReservationStatus"/>,
+		   	   deliverMinimumAmount=#{DELIVERMINIMUMAMOUNT},
+		   	   brandIntroduce=#{BRANDINTRODUCE},
+		   	   deliverArea=#{DELIVERAREA} 
+		 where brandNUM=#{BRANDNUM}
+	</update>
+	
+	<delete id="brandDelete" parameterType="map">
+		delete from brand where brandNUM=#{BRANDNUM}
+	</delete>
+	
+	<insert id="brandPositionInsert" parameterType="map">
+		insert 
+		  into brandPosition
+		values (#{BRANDNUM},
+		   	   #{BRANDLATITUDE},
+		   	   #{BRANDLONGITUDE},
+		   	   #{BRANDADDRESS},
+		   	   null,null)
+	</insert>
+	
+	<update id="brandPositionUpdate" parameterType="map">
+		update brandPosition
+		   set brandLatitude=#{BRANDLATITUDE},
+		   	   brandLongitude=#{BRANDLONGITUDE},
+		   	   brandAddress=#{BRANDADDRESS}
+		 where brandNUM=#{BRANDNUM}   	   
+	</update>
+	
+	<select id="menuCountView" parameterType="string" resultType="int">
+		select NVL(count(*),0)
+		  from brandMenu
+	     where brandNUM=#{BRANDNUM}
+	</select>
+	
+	<select id="reviewCount" parameterType="string" resultType="int">
+		select NVL(count(*),0)
+		  from review
+	     where brandNUM=#{BRANDNUM}
+	</select>
+	
+	<select id="orderDeliveryCount" parameterType="string" resultType="int">
+		select NVL(count(*),0)
+		  from orderInfo
+	     where brandNUM=#{BRANDNUM} and delivregiCheck='D'
+	</select>
+	
+	<select id="orderReserveCount" parameterType="string" resultType="int">
+		select NVL(count(*),0)
+		  from orderInfo
+	     where brandNUM=#{BRANDNUM} and delivregiCheck='R'
+	</select>
+	
+	<select id="orderTotalCount" parameterType="string" resultType="int">
+		select NVL(count(*),0) 
+		  from orderInfo
+	     where brandNUM=#{BRANDNUM}
+	</select>
+	
+	<select id="orderTotalPaymentAmountCount" parameterType="string" resultType="int">
+		select NVL(sum(paymentAmount),0) 
+		  from orderInfo
+	     where brandNUM=#{BRANDNUM}
+	</select>
+	
+	<insert id="brandImageInsert" parameterType="map">
+		insert
+		  into brandImage
+		values (#{BRANDNUM},
+				#{IMAGE1},
+				<include refid="brandImage2NullCheck"/>,
+				<include refid="brandImage3NullCheck"/>,
+				<include refid="brandImage4NullCheck"/>,
+				<include refid="brandImage5NullCheck"/>,
+				<include refid="brandImage6NullCheck"/>,
+				<include refid="brandImage7NullCheck"/>,
+				<include refid="brandImage8NullCheck"/>,
+				<include refid="brandImage9NullCheck"/>,
+				<include refid="brandImage10NullCheck"/>,
+				#{THUMNAILIMAGE},
+				null,
+				null)
+	</insert>
+	
+	<update id="brandImageUpdate" parameterType="map">
+		update brandImage
+		   set <if test='IMAGE1!="Y"'>
+		   	   image1=#{IMAGE1}
+		   	   </if>
+		   	   <if test='IMAGE2!="Y"'>
+		   	   ,image2=<include refid="brandImage2NullCheck"/>
+		   	   </if>
+		   	   <if test='IMAGE3!="Y"'>
+		   	   ,image3=<include refid="brandImage3NullCheck"/>
+		   	   </if>
+		   	   <if test='IMAGE4!="Y"'>
+		   	   ,image4=<include refid="brandImage4NullCheck"/>
+		   	   </if>
+		   	   <if test='IMAGE5!="Y"'>
+		   	   ,image5=<include refid="brandImage5NullCheck"/>
+		   	   </if>
+		   	   <if test='IMAGE6!="Y"'>
+		   	   ,image6=<include refid="brandImage6NullCheck"/>
+		   	   </if>
+		   	   <if test='IMAGE7!="Y"'>
+		   	   ,image7=<include refid="brandImage7NullCheck"/>
+		   	   </if>
+		   	   <if test='IMAGE8!="Y"'>
+		   	   ,image8=<include refid="brandImage8NullCheck"/>
+		   	   </if>
+		   	   <if test='IMAGE9!="Y"'>
+		   	   ,image9=<include refid="brandImage9NullCheck"/>
+		   	   </if>
+		   	   <if test='IMAGE10!="Y"'>
+		   	   ,image10=<include refid="brandImage10NullCheck"/>,
+		   	   </if>
+		   	   wyextra=null
+		   	   <if test='THUMNAILIMAGE!="Y"'>
+		   	   ,thumNailImage=#{THUMNAILIMAGE}
+		   	   </if>
+		 where brandNUM=#{BRANDNUM}
+	</update>
+	
+	<select id="brandImageSelectOne" parameterType="string" resultType="map">
+		select *
+		  from brandImage
+		 where brandNUM=#{BRANDNUM}
+	</select>
+	
+	
+	<sql id="brandDeliveryStatus">
+		<choose>
+			<when test="BRANDDELIVERYSTATUS != null">
+				#{BRANDDELIVERYSTATUS}
+			</when>
+			<otherwise>
+				'N'
+			</otherwise>
+		</choose>
+	</sql>
+	<sql id="brandReservationStatus">
+		<choose>
+			<when test="BRANDRESERVATIONSTATUS != null">
+				#{BRANDRESERVATIONSTATUS}
+			</when>
+			<otherwise>
+				'N'
+			</otherwise>
+		</choose>
+	</sql>
+	
+	<sql id="brandImage2NullCheck">
+		<choose>
+			<when test="IMAGE2 != null">
+				#{IMAGE2}
+			</when>
+			<otherwise>
+				null
+			</otherwise>
+		</choose>
+	</sql>
+	<sql id="brandImage3NullCheck">
+		<choose>
+			<when test="IMAGE3 != null">
+				#{IMAGE3}
+			</when>
+			<otherwise>
+				null
+			</otherwise>
+		</choose>
+	</sql>
+	<sql id="brandImage4NullCheck">
+		<choose>
+			<when test="IMAGE4 != null">
+				#{IMAGE4}
+			</when>
+			<otherwise>
+				null
+			</otherwise>
+		</choose>
+	</sql>
+	<sql id="brandImage5NullCheck">
+		<choose>
+			<when test="IMAGE5 != null">
+				#{IMAGE5}
+			</when>
+			<otherwise>
+				null
+			</otherwise>
+		</choose>
+	</sql>
+	<sql id="brandImage6NullCheck">
+		<choose>
+			<when test="IMAGE6 != null">
+				#{IMAGE6}
+			</when>
+			<otherwise>
+				null
+			</otherwise>
+		</choose>
+	</sql>
+	<sql id="brandImage7NullCheck">
+		<choose>
+			<when test="IMAGE7 != null">
+				#{IMAGE7}
+			</when>
+			<otherwise>
+				null
+			</otherwise>
+		</choose>
+	</sql>
+	<sql id="brandImage8NullCheck">
+		<choose>
+			<when test="IMAGE8 != null">
+				#{IMAGE8}
+			</when>
+			<otherwise>
+				null
+			</otherwise>
+		</choose>
+	</sql>
+	<sql id="brandImage9NullCheck">
+		<choose>
+			<when test="IMAGE9 != null">
+				#{IMAGE9}
+			</when>
+			<otherwise>
+				null
+			</otherwise>
+		</choose>
+	</sql>
+	<sql id="brandImage10NullCheck">
+		<choose>
+			<when test="IMAGE10 != null">
+				#{IMAGE10}
+			</when>
+			<otherwise>
+				null
+			</otherwise>
+		</choose>
+	</sql>
+	
+	<insert id="orderInfoInsert" parameterType="map">
+		<selectKey order="BEFORE" keyProperty="ORDERNUM" resultType="string">
+			select 'O'||seq_order.nextval from dual
+		</selectKey>
+		insert 
+		  into orderInfo
+	    values (#{ORDERNUM},
+	    		<choose>
+					<when test="MEMBERNUM != null">
+						#{MEMBERNUM}
+					</when>
+					<otherwise>
+						null
+					</otherwise>
+				</choose>,
+				<choose>
+					<when test="NONMEMBERNUM != null">
+						#{NONMEMBERNUM}
+					</when>
+					<otherwise>
+						null
+					</otherwise>
+				</choose>,
+		   	   #{BRANDNUM},
+		   	   <choose>
+					<when test="ORDERNUMBER != null">
+						#{ORDERNUMBER}
+					</when>
+					<otherwise>
+						null
+					</otherwise>
+				</choose>,
+		   	   #{DELIVREGICHECK},
+		   	   #{PAYMENT},
+		   	   #{PAYMENTAMOUNT},
+		   	   #{USEDPOINT},
+		   	   'N',
+		   	   #{APPROVALDATE},
+		   	   sysdate,
+		   	   null,
+		   	   null,
+		   	   null,null)
+	</insert>
+	
+	<insert id="reservationInsert" parameterType="map">
+		insert 
+		  into reservation
+	    values (#{ORDERNUM},
+		   	   #{RESERNAME},
+		   	   #{RECEIVINGTIME},
+		   	   null,null)
+	</insert>
+	
+	<insert id="deliveryInsert" parameterType="map">
+		insert 
+		  into delivery
+	    values (#{ORDERNUM},
+		   	   #{DELIADDRESS},
+		   	   <choose>
+					<when test="DELIMEMO != null">
+						#{DELIMEMO}
+					</when>
+					<otherwise>
+						null
+					</otherwise>
+				</choose>,
+		   	   null,null)
+	</insert>
+	
+	<update id="orderNumberUpdate" parameterType="map">
+		update OrderInfo
+		   set orderNumber=#{ORDERNUMBER}
+	     where orderNUM=#{ORDERNUM}
+	</update>
+	
+	<insert id="orderDetailInsert" parameterType="map">
+		insert 
+		  into orderDetail
+	    values ('OD'||seq_orderDetail.nextval,
+		   	   #{ORDERNUM},
+		   	   #{BRANDMENUNUM},
+		   	   #{ORDERQUANTITY},
+		   	   null,null)
+	</insert>
+	
+	<insert id="pointHistoryInsert" parameterType="map">
+		insert 
+		  into pointHistory
+		values ('P'||seq_point.nextval,
+				#{MEMBERNUM},
+				#{BRANDNUM},
+				null,
+				#{ORDERNUM},
+				'MINUS',
+				#{POINTAMOUNT},
+				sysdate,
+				null,null) 
+	</insert>
+	
+	<select id="brandReviewView" parameterType="map" resultType="map">
+		       
+				select r.* from 
+		(
+		     select rownum as rn, r.*
+		     from
+		     (
+		            select * 
+				    from brandReviewView 
+				    where brandNUM=#{BRANDNUM} 
+		     )r
+		)r
+		where rn between #{FIRSTROW} and #{ENDROW}     
+	</select>
+	
+	<select id="reviewTotalAverageView" parameterType="map" resultType="map">
+		select brandNUM,starGrade 
+		  from brandReviewView 
+		 where brandNUM=#{BRANDNUM} 
+	</select>
+	
+	<select id="reviewCountView" parameterType="map" resultType="int">
+		select count(*) 
+		  from brandReviewView 
+		 where brandNUM=#{BRANDNUM}
+	</select>
+	
+	<select id="purchaseItemView" parameterType="string" resultType="map">
+		select * 
+		  from purchaseItemView 
+		 where orderNUM=#{ORDERNUM}
+	</select>
+	
+<!-- 	나래 -->
+	<select id="selectMainAll" resultType="map">
+		
+		select b.brandNum, b.brandname, b.mainrank, NVL(r.reviewcount,0) reviewcount, NVL(f.favortotalcnt,0) favortotalcnt, NVL(r.avgStargrade, 0) avgStargrade,  NVL(i.thumNailImage, 0) thumnail
+		from brand b
+		left join (select brandNUM, count(*) as reviewcount, avg(stargrade) as avgStargrade from review group by brandNUM ) r on b.brandNUM = r.brandNUM
+		left join (select brandNUM, count(*) as favortotalcnt from favorBrand group by brandNUM) f on b.brandNUM = f.brandNUM 
+		left join (select brandNUM, thumNailImage  from brandImage) i on b.brandNUM = i.brandNUM 
+		where EXPOSURELEVEL = 'MAIN' or EXPOSURELEVEL = 'PACKAGE'
+		order by mainrank
+		
+	</select>
+	
+	<select id="searchSelectAll" parameterType = "String" resultType="map">
+         	
+         select distinct BRANDNUM, BRANDNAME, BRANDDELIVERYSTATUS, BRANDRESERVATIONSTATUS, BRANDOPENTIME, BRANDINTRODUCE, AVGSTARGRADE,
+                EXPOSURELEVEL, REVIEWCOUNT, FAVORTOTALCNT, THUMNAIL, BRANDADDRESS, BRANDLATITUDE, BRANDLONGITUDE
+		   from myArea
+          where NVL(menuname,'') LIKE '%${value}%' OR NVL(BRANDNAME,'') LIKE '%${value}%' OR  NVL(brandAddress,'') LIKE '%${value}%'
+         
+	</select>
+	
+	<select id="selectBrandAll" resultType="map">
+		
+		select distinct BRANDNUM, BRANDNAME, BRANDDELIVERYSTATUS, BRANDRESERVATIONSTATUS, BRANDOPENTIME, BRANDINTRODUCE, AVGSTARGRADE,
+                EXPOSURELEVEL, REVIEWCOUNT, FAVORTOTALCNT, THUMNAIL, BRANDADDRESS, BRANDLATITUDE, BRANDLONGITUDE
+		from myArea
+
+	</select>
+	
+	<select id="selectAdminMainList" resultType="map">
+	
+		select b.brandNum, b.brandname, b.mainrank, NVL(r.reviewcount,0) reviewcount, NVL(f.favortotalcnt,0) favortotalcnt, NVL(r.avgStargrade, 0) avgStargrade,  NVL(i.thumNailImage, 0) thumnail,
+               bo.OWNERNAME, bo.OWNEREMAIL, bo.OWNERPHONE
+		from brand b
+		left join (select brandNUM, count(*) as reviewcount, avg(stargrade) as avgStargrade from review group by brandNUM ) r on b.brandNUM = r.brandNUM
+		left join (select brandNUM, count(*) as favortotalcnt from favorBrand group by brandNUM) f on b.brandNUM = f.brandNUM 
+		left join (select brandNUM, thumNailImage  from brandImage) i on b.brandNUM = i.brandNUM 
+        left join (select OWNERNAME, OWNEREMAIL, OWNERPHONE, brandownernum from brandowner )bo on b.brandownernum = bo.brandownernum
+		where EXPOSURELEVEL = 'MAIN' or EXPOSURELEVEL = 'PACKAGE'		
+	</select>
+	
+<!-- 	검색결과 갯수만 나오는 것 -->
+	<select id="totalBrandCount" parameterType="map" resultType="int">
+	
+		SELECT count(*) 
+		  FROM (select b.brandNum, b.brandname, b.exposurelevel,
+                   bo.OWNERNAME, bo.OWNEREMAIL, bo.OWNERPHONE, bo.ownerRegDate 
+                from brand b
+                left join (select OWNERNAME, OWNEREMAIL, OWNERPHONE, brandownernum, ownerRegDate from brandowner )bo on b.brandownernum = bo.brandownernum) m
+                
+		   <if test = "keyword != null"> where brandname like '%${keyword}%'</if>	
+		   <if test = "category != null">
+		   
+	         <if test = "category == 'recommand'"> where exposurelevel = 'RECOMMAND' or exposurelevel = 'PACKAGE'</if>
+	         <if test = "category == 'normal'"> where exposurelevel = 'NORMAL' or exposurelevel = 'MAIN'</if>   
+	               
+	       </if>
+	</select>
+	
+<!-- 	모든 정보를 뽑아 -->
+	<select id="selectAllBrandList" parameterType="map" resultType="map">
+	
+	          select *
+                from            
+            	     (select rownum as RNUM2,m2.*
+	                   from   (select  rownum as rnum1, m.*
+                                from (select b.brandNum, b.brandname, b.exposurelevel,
+	                                         bo.OWNERNAME, bo.OWNEREMAIL, bo.OWNERPHONE, to_char(bo.ownerRegDate,'RRRR.MM.DD') as OWNERREGDATE
+                                        from brand b
+                                             left join (select OWNERNAME, OWNEREMAIL, OWNERPHONE, brandownernum, ownerRegDate from brandowner )bo on b.brandownernum = bo.brandownernum) m         
+         <if test = "keyword != null"> where brandname like '%${keyword}%'</if>
+         <if test = "category != null">
+         	
+         	<choose>
+         		
+         		<when test="category == 'recommand'">
+         			where exposurelevel = 'RECOMMAND' or exposurelevel = 'PACKAGE'	
+         		</when>
+         		
+         		<otherwise>
+         			where exposurelevel = 'NORMAL' or exposurelevel = 'MAIN'
+         		</otherwise>
+         	
+         	</choose>
+         	
+         </if>	
+                             order by rnum1 desc)m2)	            
+               where RNUM2 BETWEEN #{firstRow} AND #{endRow}
+	</select>
+	
+	<select id="brandMainRank" resultType="map">	
+		       select mainrank
+               from brand
+               where mainrank between 1 and 6
+               order by mainrank	
+	</select>
+	
+	
+	<update id="updateMainRankUP" parameterType="String">		
+		update brand
+		set mainrank = mainrank -1
+		where brandnum = #{value}		
+	</update>
+	
+	<update id="updateMainRankDOWN" parameterType="String">		
+		update brand
+		set mainrank = mainrank +1
+		where brandnum = #{value}		
+	</update>
+	
+	<select id="mainRankSelectBrandNUM" parameterType="int" resultType="String">
+		
+		select NVL(brandnum, '') as brandnum
+		from brand
+		where mainrank  = #{value}
+		
+	</select>
+	
+	<update id="updateMainRankZero" parameterType="map">
+		
+		update brand
+		set mainrank = #{mainRANK}
+		where brandnum = #{brandNUM}
+	
+	</update>
+	
+<!-- 업버튼 눌렀을 때, 눌린 브랜드의 메인랭크보다 -1한 번호가 있는지 찾는 함수 -->
+	<select id="selectAnothermainRank" parameterType="int" resultType="int">
+	
+		select count(*)
+		from (select *
+				from brand
+				where mainRank = #{value})
+	
+	</select>
+	
+	<select id="thumnaulImage" parameterType="String" resultType="String">
+	
+		select THUMNAILIMAGE
+		from brandImage
+		where brandnum = #{value}
+	
+	</select>
+	
+	<update id="memeberUpdatePointTotal" parameterType="map">
+		update member
+		   set POINTTOTAL=POINTTOTAL-#{USEDPOINT}
+	     where memberNUM=#{MEMBERNUM}
+	</update>
+</mapper>
+
+	

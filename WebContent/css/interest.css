@@ -1,0 +1,131 @@
+@charset "UTF-8";
+
+/* 2차메뉴 */
+.two-depth-menu {
+	width:100%; height:55px; text-align:left;  border-bottom:1px solid #ddd;  
+	margin-top:61px; padding:20px 30px; background-color:#F2F2F2; 
+}
+.two-depth-menu ul{width:691px; height:100%; margin:0 auto;}
+.two-depth-menu ul li{float:left; margin-right:20px;}
+.two-depth-menu ul li a{padding:20px; position:relative;}
+.menu_likelist{font-weight:600;}
+
+.menu_likelist:before{
+	content:''; width:57%; display:block; position:absolute; top:48px; left:22px;
+	font-weight:600; border-bottom:2px solid #333;
+}
+
+/* 메인비주얼 */
+.search-result-area {
+	width:100%; height:42px; text-align:left; position:fixed; top:61px; left:0; right:0;
+	background-color:#F2F2F2;z-index:9; padding:14px 30px;
+}
+.search_container{width:100%; height:100%;}
+.search_container p span{font-weight:600;}
+
+/* 푸드트럭 리스트*/
+.placelist-area{
+	z-index:2; position:relative; margin-right:40%; 
+	padding:6px 30px 20px; background-color:#fff;/* 108px 30px 20px두번째 메뉴로 인해 너무 내려가서 여기를 수정함 */
+}
+
+.filter_container{position:relative; z-index:3;}
+.filter{padding:13px 0 12px; min-height:25px}
+.filter span{font-size:14px; margin-right:8px; vertical-align:middle;}
+.filter span:last-child{float:right; margin-right:0px; color:#aaa;}
+
+.placelist_container{width:100%;}
+
+.title_box h4{
+	padding:20px 0 19px; display:inline-block; zoom:1;
+	vertical-align:middle; font-size:18px; font-weight:600;
+}
+
+.brand_list ul{width:100%;}
+.recommend-item{border-bottom:1px solid #e5e5e5; padding:30px 0;}
+.item-inner{display:block; position:relative; width:100%;}
+.item-inner .image-box > img{
+	float:left; width:30%; position:relative; height:200px;
+	border:1px solid #e5e5e5; overflow:hidden;
+}
+
+
+.maker-rap{
+	
+    background-color: rgba(0,0,0,0.5);
+/*     display: none; */
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30%;
+    height: 100%;
+    text-align: center;
+    display: none;
+	
+}
+
+.marker-image{
+	
+	transform: translateY(193%);
+    position: relative;
+/*     top: 50%; */
+
+}
+
+.pin-image{
+	
+	animation-name: bounceInDown;
+    animation-iteration-count: 1;
+    animation-duration: .4s;
+    animation-delay: 0s;
+    animation-timing-function: ease;
+    animation-fill-mode: both;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    width: auto;    
+}
+
+
+
+
+
+
+
+.info-box{float:left; text-align:left; width:70%; padding-left:20px;}
+.title_rap{
+	margin-right:60px; font-size:28px; vertical-align:middle; letter-spacing:-1px; width:100%;
+}
+.score-rap{margin-top:8px;}
+.stars{
+	color: #F9D922; font-size:18px; line-height:13px; letter-spacing:-2px;
+}
+.txt_review{padding-right:10px; font-size:14px; color:#aaa; margin-left:10px;}
+.txt_distance{
+	float:right; font-size:13px; margin-left:5px; display:inline-block;
+	vertical-align:middle;
+}
+
+.indroduce-rap{
+	margin-top:25px;
+}
+
+.type-rap{margin-top:10px;}
+.type-rap i{
+	background-color:#ff2d60; font-size:12px; color:#fff; display:inline-block;
+	padding:3px 5px 2px; vertical-align:top; margin-top:3px;
+}
+.type-rap .open{background-color:#666;}
+
+.indroduce-rap {text-align: left;}
+.indroduce-rap span{font-size:15px; display:block; margin-bottom:7px; font-weight:700;}
+.indroduce-rap p{font-size:15px; line-height: 22px;}
+
+
+/* 푸드트럭 맵 */
+.placemap-area{
+	z-index:1; position:fixed; top:116px; right:0; width:40%;/*두번째 메뉴 때문에 지도가 오버되서 top을 수정함  */
+	height:100%; overflow:hidden; background-color:red;	
+}
+
+

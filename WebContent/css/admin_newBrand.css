@@ -1,0 +1,140 @@
+@charset "UTF-8";
+
+.table_option {
+	margin-top: 5%;
+}
+
+.memberInfo ul li.notice_add{
+	margin-left: -1%;
+    margin-right: 5%;
+    width: 3%;
+}
+
+.memberInfo ul li input[type=submit] {
+    
+ 	display: inline-block;
+    width: 100px;
+    height: 50px;
+    margin-left: 2px;
+    cursor: pointer;
+    background-color: #f7f7f7;
+    outline: 0;
+    border: 1px solid #ccc;
+    font-weight: 600;
+}
+
+.brandTab input[type=button]:hover {
+	background-color: #ddd;
+}
+
+.headermenu_left {
+	margin-top: 4%;
+	margin-bottom: -3%;
+}
+
+.tabLink {
+    background-color: #f8f8f8;
+    color: #080808;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 0.55% 1%;
+    font-size: 100%;
+    width: 13%;
+}
+
+.memberInfo {
+	width: 100%;
+	border: 1px solid #ccc;
+	background-color: #fff;
+}
+
+.memberInfo ul {
+	width: 100%;
+}
+
+.memberInfo ul li {
+	float: left;
+	width: 40%;
+	padding: 2%;
+    margin-left: 11%;
+}
+
+.memberInfo ul li .width {
+	width: 11%;
+	display: inline-block;
+	font-size: 1.2em;
+}
+
+.memberInfo ul li.d01 {
+	float: left;
+	width: 40%;
+	padding: 2%;
+    margin-left: 11%;
+/*     padding-top: 1%; */
+    padding-bottom: 1%;
+}
+
+.memberInfo ul li.d02 {
+	float: left;
+	width: 40%;
+	padding: 2%;
+    margin-left: 0%;
+/*     padding-top: 1%; */
+    padding-bottom: 1%;
+}
+
+.memberInfo ul li.d03 {
+	float: left;
+	width: 40%;
+	padding: 2%;
+    margin-left: 11%;
+    padding-top: 1%;
+/*     padding-bottom: 1%; */
+}
+
+.memberInfo ul li.d04 {
+	float: left;
+	width: 40%;
+	padding: 2%;
+    margin-left: 0%;
+    padding-top: 1%;
+/*     padding-bottom: 1%; */
+}
+
+.memberInfo ul li.d05 {
+	float: left;
+	width: 50%;
+	padding: 2%;
+    margin-left: 0%;
+    padding-top: 1%;
+    padding-bottom: 1.5%;
+    color: #999;
+    font-family: gulim;
+    line-height: 180%;
+    font-size: 12px;
+    padding-left: 5%;
+}
+
+.memberInfo ul li input[type=text]{
+	width: 70%;
+	margin-left: 10%;
+	padding-top: 2%;
+    padding-bottom: 2%;
+}
+
+.memberInfo ul li input[type=password]{
+	width: 70%;
+	margin-left: 10%;
+	padding-top: 2%;
+    padding-bottom: 2%;
+}
+
+.content_container{
+	margin-left:239px; 
+	margin-top:60px; 
+	padding:20px; 
+	background-color:#f1f1f1; 
+	padding-bottom:27.8%;
+}

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.NoticeDao">
+	<insert id="insertNotice" parameterType="map">
+		insert into notice values ('N'||seq_notice.nextval,#{noticetitle},#{noticetype},#{noticecontent},0,sysdate,#{uploadfile1},#{uploadfile2},#{uploadfile3},null,null)
+	</insert>
+	<update id="updateNotice" parameterType="map">
+		update notice set noticenum='N'||seq_notice.nextval,noticetitle=#{noticetitle},noticecontent=#{noticecontent},noticeregdate=sysdate, noticeviewcount=0
+			<if test='uploadfile1!=null'>
+				,uploadfile1=#{uploadfile1}
+			</if>
+			<if test='uploadfile2!=null'>
+				,uploadfile2=#{uploadfile2}
+			</if>
+			<if test='uploadfile3!=null'>
+				,uploadfile3=#{uploadfile3}
+			</if>
+	where noticenum=#{noticenum}
+	</update>
+	<update id="updateViewCount" parameterType="map">
+		update notice set noticeviewcount = #{NOTICEVIEWCOUNT}+1 where noticenum=#{NOTICENUM}
+	</update>
+	<delete id="deleteNotice" parameterType="string">
+		delete from notice where noticenum=#{NOTICENUM}
+	</delete>
+	<select id="selectOneNotice" parameterType="string" resultMap="getNoticeList">
+		select notice3.* from(select notice2.*,rownum as rnum2 from
+		(select notice1.*,rownum as rnum1 from
+		(select noticenum,noticetitle,noticetype,noticecontent,noticeviewcount,to_char(noticeregdate,'RRRR.MM.DD')as NOTICEREGDATE,
+   		 uploadfile1,uploadfile2,uploadfile3 from notice 
+					order by noticetype desc,noticeregdate,noticenum)notice1 order by rnum1 desc)notice2)notice3
+    	where notice3.noticenum=#{NOTICENUM}
+	</select>
+	<select id="selectAllNotice" parameterType="map" resultType="map">
+		select * from(select notice2.*,rownum as rnum2 from
+		(select notice1.*,rownum as rnum1 from
+		(select noticenum,noticetitle,noticetype,noticeviewcount,to_char(noticeregdate,'RRRR.MM.DD')as NOTICEREGDATE,
+   		 uploadfile1,uploadfile2,uploadfile3 from notice 
+    				<if test="keyword!= null">
+				 	 where noticetitle  like '%${keyword}%'
+					</if>
+					order by noticetype desc,noticeregdate,noticenum)notice1 order by rnum1 desc)notice2) 
+    	where rnum2 between #{FIRSTROW} and #{ENDROW}
+	</select>
+
+	<select id="countNotice" parameterType="map" resultType="int">
+		select count(*) from notice
+			<if test="keyword!= null">
+				 where noticetitle  like '%${keyword}%'
+			</if>
+	</select>
+	<select id="userPage" parameterType="string" resultType="map">
+	select * from
+(select notice4.*,Lead(notice4.noticetitle,1,'다음글')over(order by notice4.rnum2)next_noticetitle,
+Lead(notice4.noticenum,1,'다음글')over(order by notice4.rnum2)next_noticenum,
+lag(notice4.noticetitle,1,'이전글')over(order by notice4.rnum2)pre_noticetitle,
+lag(notice4.noticenum,1,'이전글')over(order by notice4.rnum2)pre_noticenum from
+(select notice3.noticetitle,notice3.noticenum,notice3.rnum2 from
+(select notice2.*,rownum as rnum2 from
+		(select notice1.*,rownum as rnum1 from
+		(select noticenum,noticetitle,noticetype,noticeviewcount,to_char(noticeregdate,'RRRR.MM.DD')as NOTICEREGDATE,
+   		 uploadfile1,uploadfile2,uploadfile3 from notice 
+					order by noticetype desc,noticeregdate,noticenum)notice1 order by rnum1 desc)notice2)notice3)notice4)notice5 where notice5.rnum2=#{rnum}
+	</select>
+	<resultMap type="HashMap" id="getNoticeList">
+		<result property="NOTICENUM" column="NOTICENUM"/>
+		<result property="NOTICETITLE" column="NOTICETITLE"/>
+		<result property="NOTICETYPE" column="NOTICETYPE"/>
+		<result property="NOTICECONTENT" column="NOTICECONTENT" jdbcType="CLOB" javaType="java.lang.String"/>
+		<result property="NOTICEVIEWCOUNT" column="NOTICEVIEWCOUNT"/>
+		<result property="NOTICEREGDATE" column="NOTICEREGDATE"/>
+		<result property="UPLOADFILE1" column="UPLOADFILE1"/>
+		<result property="UPLOADFILE2" column="UPLOADFILE2"/>
+		<result property="UPLOADFILE3" column="UPLOADFILE3"/>
+		<result property="EXTRA1" column="EXTRA1"/>
+		<result property="EXTRA2" column="EXTRA2"/>
+	</resultMap>
+</mapper>

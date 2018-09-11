@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.ReviewDao">
+
+	<insert id="insertReview" parameterType="map">
+		<selectKey order="BEFORE" keyProperty="reviewnum" resultType="string">
+			select 'R'||seq_review.nextval from dual
+		</selectKey>
+
+		insert into review
+		values(#{reviewnum},#{brandNum},#{orderNum},#{memberNum},#{starGrade},#{reviewContent}
+
+		<choose>
+			<when test="reviewPhoto!=null">
+				,#{reviewPhoto}
+			</when>
+			<otherwise>
+				,null
+			</otherwise>
+		</choose>
+		,'N',sysdate,null,null)
+
+	</insert>
+	
+	<select id="selectAll" parameterType="map" resultType="map">
+			    select * from
+			    ( 
+			           select rownum as rnum,r.* from
+			            (    
+			                select r.*,b.brandname,m.memberemail from(
+			                           select * from review 
+			                           where 
+			                           
+			                            	<choose>
+			                            		<when test="category!=null and brandNum!=null">
+			                            			 REPLYSTATUS = #{category} and BRANDNUM = #{brandNum}
+			                            		</when>
+			                            		<when test="category!=null">
+			                            			 REPLYSTATUS = #{category}
+			                            		</when>
+			                            		<when test="brandNum!=null">
+			                            			 BRANDNUM = #{brandNum}
+			                            		</when>
+			                            		<otherwise>
+			                            			1=1
+			                            		</otherwise>
+			                            	</choose>
+			                                         
+			                )r
+			                inner join brand b on r.brandnum = b.brandnum
+			                inner join member m on r.membernum = m.membernum 
+			                where 
+			                <choose>
+                           		<when test="keyword!= null">
+                           			m.memberemail like '%${keyword}%'
+                           		</when>
+                            	<otherwise>
+                            		1=1
+                            	</otherwise>
+                            </choose>
+                            order by to_number(substr(REVIEWNUM,2)) desc
+			            )r
+			     )      
+				where rnum between #{firstRow} and #{endRow}   
+        
+        
+	</select>
+	
+	<select id="countReview" parameterType="map" resultType="int">
+		
+		select count(*) from review r
+        inner join member m on r.membernum = m.membernum
+        where 1=1 
+        
+        <if test="keyword!=null">
+        	and m.memberemail like '%${keyword}%'
+        </if>
+        
+        <if test="category!=null">
+        	and r.REPLYSTATUS = #{category}
+        </if>
+        
+        <if test="brandNum!=null">
+            and r.BRANDNUM = #{brandNum}
+        </if>
+        
+
+	</select>
+	
+	
+	<select id="selectOne" parameterType="String" resultType="map">
+		
+		select r.REVIEWNUM, r.BRANDNUM, r.ORDERNUM, r.MEMBERNUM, r.STARGRADE, r.REVIEWCONTENT,
+           r.REVIEWPHOTO, r.REPLYSTATUS, to_char(r.REVIEWREGDATE,'RRRR.MM.DD') as REVIEWREGDATE, m.memberemail, br.REPLYCONTENT from review r 
+    	inner join member m on r.membernum = m.membernum
+    	left join brandReviewReply br on br.REVIEWNUM = r.REVIEWNUM
+    	where r.reviewnum = #{reviewNum}
+		
+	</select>
+	<insert id="insertReply" parameterType="map">
+		insert into  brandReviewReply values(#{reviewNum},#{content},sysdate,null,null)
+	</insert>
+	
+	<update id="updateReview" parameterType="String">
+		update review set REPLYSTATUS = 'Y' where reviewnum = #{reviewNum}
+	</update>
+	
+	<update id="updateMemberPoint" parameterType="String">
+		update member set POINTTOTAL = POINTTOTAL+50 where membernum = #{membernum}
+	</update>
+	
+	<delete id="deleteReview" parameterType="String">
+		delete from review where reviewnum = #{reviewnum}
+	
+	</delete>
+</mapper>
+
+
+

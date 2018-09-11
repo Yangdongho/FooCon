@@ -1,0 +1,179 @@
+@charset "UTF-8";
+
+/* 비주얼 */
+.visual-area {width:100%; height:520px; text-align: center; padding-top:61px;}
+.slider-container {width:100%; height: 100%; margin: 0 auto; position: relative;}
+.slider {width:1903px; height: 459px; margin: 0 auto;}
+.prev, .next {
+  background: rgba(255,255,255,.5); position: absolute; width: 30px; height: 60px;
+  top: 190px; border: none; cursor: pointer; transition: all .25s; font-weight: bold;
+}
+.next {right:0;}
+.prev {left:0;}
+.prev:hover, .next:hover { background: rgba(255,255,255,.75); }
+button:focus {outline:0;}
+.slide { 
+	width: 1903px; height: 459px; line-height: 240px; text-align: center; 
+	color: #fff; background-repeat:no-repeat;
+	background-position:center center; background-size:cover;
+}
+.slider-nav {
+  text-align: center; position:absolute; left:50%;
+  transform:translateX(-50%); top:495px;
+}
+.btn-nav {
+  border: 0; width: 10px; height: 10px; border-radius: 10px;
+  padding: 0; cursor: pointer; margin-right: 5px;
+}
+.btn-nav.active {background-color: #333;}
+
+
+/* 브랜드 정보 */
+.brand-info-area {width:100%; text-align: left; padding-top:38px; position:relative; padding-bottom:100px;}
+.column_left {width:66%; float:left; padding-right:1%;}
+.brand_info{width:100%; position: relative;}
+.like_sharelink{position: absolute; top:0px; right:0px;}
+
+.like_sharelink span{
+	text-align: center; font-size:27px;
+	display:inline-block; background-color:#fff; cursor: pointer;
+}
+
+.like_sharelink span.color{color:#ff2d60;}
+
+
+.brand_info_header{width:100%;}
+.brand_info_header dt{margin-bottom:8px; font-size:42px; font-weight:400;}
+.brand_info_header dd{float:left; font-size:14px; padding-right:10px; font-weight: 400; color:#aaa;}
+.brand_info_header dd span{font-size:18px; line-height:13px; letter-spacing:-2px; }
+.brand_info_header dd span:first-child{padding-left:2px;}
+
+
+.brand_info_con{width:100%; border-collapse:collapse; border-spacing:0; margin-top:50px;}
+.brand_info_con caption{display:none;}
+.brand_info_con tbody th{
+	width:10%; color:#aaa; line-height:20px; 
+	text-align:left; vertical-align:top; padding-right:30px; 
+	padding-bottom:5px; font-weight: 400; font-size:14px;
+}
+.brand_info_con tbody td{
+	width:90%; line-height:20px; font-size:14px; font-weight: 400;
+	text-align:left; vertical-align:top; padding-right:10px; padding-bottom:5px;
+}
+.brand_info_bottom{margin-top:10px;}
+.brand_info_bottom i{
+	background-color:#ff2d60; font-size:14px; color:#fff; display:inline-block;
+	padding:4px 8px; vertical-align:top; margin-top:3px;
+}
+.brand_info_bottom .open{background-color:#666;}
+
+/* 메뉴정보 */
+.brand_menu_review{width:100%; margin-top:40px;}
+.brand_tab {width:100%; text-align: center;}
+.brand_tab li {
+	float:left; width:50%; height:49px; line-height:49px;
+	background-color: #ebebeb; cursor:pointer; transition:all 0.3s;
+	border:1px solid #ccc; font-weight: 400; color:#666; 
+}
+.brand_tab li:last-child{border-left:none;}
+.brand_tab li.active {background-color: #fff; border-bottom:none;}
+.menu_review_list{width:100%; padding-top:30px;}
+.brand_menu{width:100%; border-collapse:collapse; border-spacing:0; margin-top:50px; border:1px solid #ccc; cursor: pointer;}
+.brand_menu caption{display:none;}
+.brand_menu tbody th{
+	width:80%; line-height:20px; border-top:1px solid #ccc; color:#666666;
+	text-align:left; vertical-align:top; padding:17px 0 17px 15px;   
+}
+.brand_menu tbody td{
+	width:20%; line-height:20px; border-top:1px solid #ccc;
+	text-align:right; vertical-align:top; padding:17px 0; font-weight:500;
+}
+.brand_menu tbody .won{padding:17px 15px 17px 0;}
+
+/* 리뷰정보 */
+.review_total_core{width:100%; margin-top:50px; text-align:center; margin-bottom:15px;}
+.review_total_core span{font-size:26px; line-height:13px; letter-spacing:-2px;}
+.star-total-core{color: #F9D922;}
+.star-total-gray{color: #F2F2F2;}
+.total-core-count{color:#666; letter-spacing:0px; font-size:22px; padding-left:5px;}
+
+
+.review_message{
+	min-height:22px; margin-top:30px; padding:18px 20px 14px;
+	background-color:#f1fcfc; border: 1px solid #e3eded; font-size: 14px;
+}
+.review_message .badge_live{
+	background-color:#18d0c5; font-size:13px; color:#fff; display:inline-block;
+	padding:3px 5px 2px; margin-right:2px;
+}
+.review_list {width:100%;}
+.review_list li{padding:30px 10px; display:block; min-height:140px; border-bottom:1px solid #e5e5e5;}
+.review_userinfo{width:100%; text-align: left;}
+.review_userinfo .date{font-size:14px; color:#888;}
+.review_userinfo span{display:inline-block; vertical-align:middle; padding:0 10px; border-right:1px solid #ddd;}
+.review_userinfo span:first-child{padding-left:0;}
+.review_userinfo span:last-child{border-right:0;}
+.review_score{text-align:left; margin-bottom:15px; margin-top:10px;}
+.review_score span{font-size:18px; line-height:13px; letter-spacing:-2px;}
+.purchase_details{font-size:13px; color:#888; font-weight: 350; padding-bottom:20px; display:block;}
+.review_content{color:#666;}
+
+.review_answer_area{width:100%; text-align: left;  background-color:#F2F2F2; padding:30px 10px; margin-top:30px;}
+.review_answer_area .review_answer_date{font-size:14px; color:#888; border-right:0;}
+.review_answer_area span{display:inline-block; vertical-align:middle; padding:0 10px; border-right:1px solid #ddd;}
+.review_answer_area span:first-child{padding-left:0;}
+.review_answer{color:#666; margin-top:20px;}
+.review_more_btn{
+	width:100%; padding:15px 0 14px; text-decoration:none;
+	text-align:center; font-size:15px;  text-shadow:none;
+	border:1px solid #e5e5e5; background:#fff; outline:0;
+	line-height:normal; color:#888; cursor:pointer; margin-top:30px; 
+}
+
+/* 지도 및 주문함 */
+.column_right {width:33%; float:right;}
+.column_right_content{width:100%; height:318px;}
+.brand_map{width:100%; height:318px;}
+.order_basket{width:396px; border:1px solid #ccc; margin-top:31px;}
+.order_basket.scroll{position:fixed; top:55px;}
+.order_basket_head{width:100%; border-bottom:1px solid #ccc;}
+.order_basket_head p{width:82%; text-align:left; display:inline-block; padding:17px 15px 17px 15px;}
+.order_basket_head p span{color:#ff2d60;}
+.clear_btn{
+	float:right; border:1px solid #ccc; padding:5px 10px;
+	margin:-39px 17px 0 0; cursor: pointer; color:#aaa; font-size: 14px;
+}
+
+.order_basket_body{width:100%; text-align:left; display:inline-block; background-color: #fff;}
+.order_basket_body ul{
+	width:100%; max-height:542px; overflow-x: hidden;
+    overflow-y: auto; padding: 0px 15px 17px 15px;
+}
+.order_basket_body ul li{width:100%; border-bottom:1px solid #ccc; margin-top:28px;}
+.menu_name{color:#333; border:none; font-size:16px; text-indent:2px; width:100%}
+.price_count{width:100%; padding:15px 0; text-align: right;}
+.price{width:74%; display: inline-block;}
+.price a{border:1px solid #ccc; padding:2px 7px; cursor: pointer; font-weight: 600;}
+.price input{display:inline-block; padding:5px 1px 5px 5px; border:none; text-align: right;}
+.price i{font-size:14px; padding-right:10px;}
+.count{width:25%; display: inline-block; text-align: left;}
+.count a{border:1px solid #ff2d60; padding:2px 7px; cursor: pointer; font-weight: 600; color:#ff2d60; width:30%;}
+.count input{font-size:14px; display:inline-block; padding:5px 10px; border:none; width:40%; text-align: center;}
+.total_price_order_btn{width:100%; padding:0px 15px 17px 15px;}
+.empty_txt{text-align: center;}
+.total_price_order_btn > div{width:100%; padding:15px 0;}
+.total_price_order_btn i{font-size: 14px; text-align: right; display:inline-block; color:#ff2d60;}
+.total_price_txt{width:21%; text-align: left; display:inline-block;}
+.total_price{width:73%; text-align: right; display:inline-block; color:#ff2d60; font-size:20px;}
+.order_btn{
+	display:inline-block; width:100%; background-color:#ff2d60; cursor:pointer;
+	padding:10px 16px; text-align:center; font-size:18px; color:#fff; border:1px solid #ff2d60;
+}
+.menuNone{text-align: center; padding-top:75px; font-size: 18px; font-weight: 500;}	
+.gray{margin-left:3px;}	
+.review_img{margin-top:20px; width:50%;}
+.custom-file-upload {border: 1px solid #ccc; display: inline-block; padding: 6px 12px; cursor: pointer;}
+#kakao-link-btn img{width:24px; height:24px;}
+#twitter-link-btn img{width:24px; height:24px;}
+#facebook-link-btn img{width:24px; height:24px;}
+#loading {width:24px; margin-top:10px;}

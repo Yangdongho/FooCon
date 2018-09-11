@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.AdInquireDao">
+	<insert id="adReferenceInsert" parameterType="map">
+		insert
+		  into adInquire
+		values ('ad'||seq_adInquire.nextval,
+				#{INQUIRETYPE},
+				#{INQUIRENAME},
+				#{INQUIREPHONE},
+				#{INPUIREBRAND},
+				#{INPUIRECONTENT},
+				#{INPUIREADDRESS},
+				sysdate,
+				null,null)  
+	</insert>
+	
+	<select id="totalAdInquire" parameterType="map" resultType="int">
+		select count(*)
+		  from adInquire
+		 where 1=0
+		 <choose>
+		 	<when test="INQUIRENAME != null">
+		 		or (inquireName like '%${INQUIRENAME}%'
+				or inpuireBrand like '%${INPUIREBRAND}%')
+		 	</when>
+		 	<otherwise>
+		 		or 1=1
+		 	</otherwise>
+		</choose>
+		 <if test="INQUIRETYPE != null">
+				and inquireType = #{INQUIRETYPE}
+		</if>
+	</select>
+	
+	<select id="searchAdInquire" parameterType="map" resultType="map">
+		select * 
+  		  from (select rownum as rnum2,s2.*, TO_CHAR(inpuireRegDate,'YYYY.MM.DD') as adInquireDate
+          		  from (select rownum as rnum1,s1.*
+                  		  from (select *
+ 		                          from adInquire
+ 		                         where 1=0
+ 		                         <choose>
+								 	<when test="INQUIRENAME != null">
+								 		or (inquireName like '%${INQUIRENAME}%'
+										or inpuireBrand like '%${INPUIREBRAND}%')
+								 	</when>
+								 	<otherwise>
+								 		or 1=1
+								 	</otherwise>
+								</choose>
+								 <if test="INQUIRETYPE != null">
+										and inquireType = #{INQUIRETYPE}
+								</if>
+                         		 order by addInquireNUM)s1 
+                 		 order by rnum1 desc)s2)s3
+ 		 where rnum2 between #{FRISTROW} and #{ENDROW}
+	</select>
+	
+	<select id="adReferenceSelectOne" parameterType="string" resultType="map">
+		select s1.*,TO_CHAR(inpuireRegDate,'YYYY.MM.DD HH24:MI:SS') as adInquireDate
+		  from (select *
+				  from adInquire
+				 where addInquireNUM=#{ADDINQUIRENUM})s1
+	</select>
+</mapper>
+
+	

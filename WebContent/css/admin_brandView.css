@@ -1,0 +1,99 @@
+@charset "UTF-8";
+
+/* 브랜드 뷰페이지 */
+.brand-list-area {width:100%; text-align: left;}
+form{width:100%; margin-top:10px; position: relative;}
+form > input[type=text]{
+	width:100%; height:100%; padding:4px 8px; background-color:#fff;
+	border:1px solid #ddd; font-size:1.5em; 
+}
+form > ul {width:100%; margin-top:10px;}
+form > ul li{float:left; padding-right:30px; text-indent:3px;}
+form > ul li p{font-size: 15px; font-weight: 350;}
+form > ul li p span{font-size: 16px; font-weight: 400;}
+form > ul li:last-child{padding-right:0px;}
+.brand-list-inner{width:100%; padding:0 2px;}
+.exposure_option{width:100%;}
+.exposure_option div{float: left; width:33%; padding-top:30px;}
+.title_txt{font-size:18px; font-weight:600; padding-right:15px;}
+/*라디오버튼 디자인 변경 참고사이트
+https://viralpatel.net/blogs/css-radio-button-checkbox-background/*/
+/*실제 라디오버튼 없애기 */
+.exposure_option input[type='radio'] {display: none;}
+/* 가짜 라디오버튼 만들기 */
+.exposure_option input[type='radio'] + label{
+	display: inline-block; width:25%; height:30px; cursor:pointer; text-align:center;
+	line-height:30px; color:#666; border:1px solid #999; margin-right:1%; 
+}
+/* 가짜 라디오버튼 체크했을 때 */
+.exposure_option input[type='radio']:checked + label{color:#ff2d60; border:1px solid #ff2d60;}
+.account_info{width:100%; margin-top:20px;}
+.account_info ul{width:100%; margin-top:10px;}
+.account_info ul li{width:30%; margin-right:3%; float: left; margin-bottom:5px; }
+.account_info ul li:nth-child(3n){margin-right:0%;}
+.account_info ul li span{display:inline-block;  width:13%;}
+.account_info input[type='text']{
+	width:86%; padding:5px 18px 6px 12px; height:32px;
+	border:1px solid #d6d7d8; border-radius:2px;
+}
+.account_info input[type='button']{
+	padding:7px 12px; text-decoration:none; font-weight:600;
+	border:1px solid #ccc; border-radius:2px; background:#f7f7f7; text-shadow:none; 
+	font-size:13px; line-height:normal; cursor:pointer; outline:0;
+}
+.pwText{vertical-align: top; padding-top: 10px; width: 12.5% !important;}
+.pwSpan{width: 86% !important;}
+.pwSpan input[type='password']{
+	width: 100% !important; margin-bottom: 5px; padding:5px 18px 6px 12px; 
+	height:32px; border:1px solid #d6d7d8; border-radius:2px;
+}
+.img_info{width:100%; margin-top:20px;}
+.img_info ul{width:100%; margin-top:10px;}
+.img_info ul li{width:100%; float: left; margin-bottom:5px;}
+.img_info ul li span{display:inline-block;  width:81px;}
+
+.basic_info{width:100%; margin-top:20px;}
+.left_column{float:left; width:50%; margin-top:10px;}
+.left_column ul{width:100%;}
+.left_column ul li{width:100%; float: left; margin-bottom:10px;}
+.left_column ul li span{display:inline-block;  width:12%;}
+.left_column ul li i{margin-right:5px; margin-left:3px;}
+.left_column ul li .brand_intruduce{vertical-align: top;}
+.left_column input[type='text']{
+	width:86%; padding:5px 18px 6px 12px; height:32px;
+	border:1px solid #d6d7d8; border-radius:2px;
+}
+.left_column select{
+	padding:5px 18px 6px 12px; height:32px; margin-left:-4px;
+	border:1px solid #d6d7d8; border-radius:2px;
+}
+
+.right_column{float:left; width:50%; height:400px; margin-top:10px;}
+
+form > input[type=submit]{
+	display:block; width:220px; height:45px; margin:0 auto; 
+	margin-top:20px; text-decoration:none; font-weight:600; 
+	border:1px solid #ccc; border-radius:2px; background:#f7f7f7; text-shadow:none; 
+	font-size:13px; line-height:normal; cursor:pointer; outline:0; 
+}
+.img{width:100px; margin-right:10px; margin-top:10px;}
+.deleteImage{display: inline-block; cursor: pointer; position: relative;}
+.deleteImage:before {
+    display: block; content: ""; position: absolute; top: 25px;
+    left: 75px; width: 20px; height: 3px; margin-top: -2px;
+    background: #ff2d60; transform:rotate(45deg);
+}
+.deleteImage:after {
+    display: block; content: ""; position: absolute; top: 25px;
+    left: 75px; width: 20px; height: 3px; margin-top: -2px;
+    background: #ff2d60; transform:rotate(315deg);
+}
+
+input[type=file]{display:none;}
+.custom-file-upload {
+	border: 1px solid #ccc; display: inline-block; padding: 6px 12px; cursor: pointer;
+	font-size: 14px; margin-left: -21px; background-color:#fff;	
+}
+.detailLi{margin-top:15px;}
+.text{width:100% !important; clor:#ff2d60; font-size: 15px; padding:5px; margin-bottom: 5px;}
+

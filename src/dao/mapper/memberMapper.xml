@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.MemberDao">
+	
+	<select id="selectOne" parameterType="String" resultType="map">
+		select MEMBERNUM,MEMBEREMAIL,SNSTYPE,POINTTOTAL,MEMBERPHONE,NICK,
+		to_char(MEMBERREGDATE,'RRRR.MM.DD') as MEMBERREGDATE,MEMBERAUTHORITY,QUITMEMBER 
+		from member where membernum = #{memberNum}
+	</select>
+	<select id="selectAll" parameterType="map" resultType="map">
+		select oi.* from
+		(
+				select rownum as rnum2,oi.* from
+		        (
+		                select * from 
+		                (
+		                      select ROWNUM as rnum,MEMBERNUM, MEMBERPHONE, NICK, MEMBEREMAIL, to_char(MEMBERREGDATE,'RRRR.MM.DD') as MEMBERREGDATE from 
+		                      (
+		                           select MEMBERNUM, MEMBERPHONE, NICK, MEMBEREMAIL, MEMBERREGDATE from member  
+		                           where  QUITMEMBER = 'N'
+		                           <if test="keyword!=null">
+		                           		and MEMBEREMAIL like '%${keyword}%' or NICK like '%${keyword}%'
+		                           </if>
+		                           order by to_number(substr(membernum,2)) 
+		                      )
+		                ) order by rnum desc
+		         )oi
+		)oi     
+		where rnum2 between #{firstRow} and #{endRow}
+		
+		
+	</select>
+	
+	<select id="countMember" parameterType="map" resultType="int">
+		select count(*) from member where  quitmember ='N'
+										<if test="keyword!=null">
+		                           			and MEMBEREMAIL like '%${keyword}%' or NICK like '%${keyword}%'
+		                         		</if>
+	</select>								
+	
+	<select id="countOrderByMember" parameterType="map" resultType="int">
+		select count(*) from orderinfo where membernum = #{MEMBERNUM} and DELIVREGICHECK = #{CHECK}
+	
+	</select>
+	
+	<select id="sumAmount" parameterType="String" resultType="String">
+		select (TO_CHAR(sum(PAYMENTAMOUNT) , '999,999,999,999,999')) as sum
+		from orderinfo where membernum = #{memberNum}
+	</select>
+	
+	<select id="countFavorBrand" parameterType="string" resultType="int">
+		select count(*) from favorbrand where membernum = #{memberNum}
+	</select>
+	
+	
+	
+<select resultType="map" parameterType="map" id="selectAllMemberOrderList">select * from(select point2.*,rownum as rnum2 from 
+      (select point1.*,rownum as rnum from
+      (select o.membernum,o.ordernum,o.brandnum,p.pointnum,p.pointseparation,p.pointamount,to_char(o.orderdate,'RRRR.MM.DD')as orderdate,
+        m.pointtotal,m.memberemail,m.nick,m.memberphone,
+        o.delivregicheck,o.usedpoint,o.ordernumber,o.paymentamount,o.canclestatus,b.brandname from orderinfo o
+      left join member m on m.membernum=o.membernum
+      left join pointhistory p on p.ordernum = o.ordernum
+      left join brand b on o.brandnum = b.brandnum order by o.orderdate)
+      point1 where point1.membernum=#{MEMBERNUM} order by rnum desc)point2 )
+      where rnum2 between #{FIRSTROW} and #{ENDROW}
+ </select>
+
+<select resultType="map" parameterType="map" id="selectAllMemberPointList"> select * from(select point2.*,rownum as rnum2 from (select point1.*,rownum as rnum from (select p.membernum,p.ordernum,p.brandnum,p.pointnum,p.pointamount,to_char(p.pointdate,'RRRR.MM.DD')as pointdate,m.pointtotal,m.memberemail,m.nick,o.delivregicheck,o.usedpoint,o.ordernumber,b.brandname from pointhistory p left join member m on m.membernum=p.membernum left join orderinfo o on p.ordernum = o.ordernum left join brand b on p.brandnum = b.brandnum order by p.pointdate) point1 where point1.membernum=#{MEMBERNUM}order by rnum desc)point2 ) where rnum2 between #{FIRSTROW} and #{ENDROW} </select>
+
+<select resultType="map" parameterType="map" id="selectAllMemberOrderMenu"> select od.brandmenunum,bm.menuname from orderdetail od inner join brandmenu bm on od.brandmenunum=bm.brandmenunum where od.ordernum = #{ORDERNUM} </select>
+
+<select resultType="int" parameterType="map" id="countOrderList">
+	select count(*) from(
+	select
+	p.membernum,p.ordernum,p.brandnum,p.pointnum,p.pointseparation,p.pointamount,to_char(p.pointdate,'RRRR.MM.DD')as
+	pointdate, m.pointtotal,m.memberemail,m.nick,m.memberphone,
+	o.delivregicheck,o.usedpoint,o.ordernumber,o.paymentamount,o.canclestatus,b.brandname
+	from pointhistory p left join member m on m.membernum=p.membernum
+	left join orderinfo o on p.ordernum = o.ordernum
+	left join brand b on p.brandnum = b.brandnum
+	where m.membernum=#{MEMBERNUM}
+	order by p.pointdate)
+</select>
+
+<select resultType="int" parameterType="map" id="countPointList"> select count(*) from(select p.membernum,p.ordernum,p.brandnum,p.pointnum,p.pointamount,to_char(p.pointdate,'RRRR/MM/DD')as pointdate,m.pointtotal,m.memberemail,m.nick,o.delivregicheck,o.usedpoint,b.brandname from pointhistory p left join member m on m.membernum=p.membernum left join orderinfo o on p.ordernum = o.ordernum left join brand b on p.brandnum = b.brandnum where m.membernum=#{MEMBERNUM} order by p.pointdate) </select>
+
+<select id="memberSelectOne" parameterType="string" resultType="map">
+		select * 
+		  from member 
+		 where memberNUM=#{MEMBERNUM}
+</select>	
+	
+	
+<!-- 나래 -->
+	<select id="memberFaovrBrand" parameterType="String" resultType="map">
+		
+		select fb.memberNum, b.BRANDNUM, b.BRANDNAME, b.brandDeliveryStatus, b.brandReservationStatus, b.brandOpenTime, b.brandIntroduce, b.exposureLevel ,NVL(r.reviewcount,0) reviewcount ,NVL(f.favortotalcnt,0) favortotalcnt, NVL(r.avgStargrade, 0) avgStargrade, 
+		       NVL(i.thumNailImage, 0) thumnail, p.brandAddress ,p.brandLatitude, p.brandLongitude
+		from brand b
+		    left join(select brandNUM, memberNUM from favorbrand)fb on b.brandnum = fb.brandnum
+		    left join (select brandNUM, count(*) as reviewcount, avg(stargrade) as avgStargrade from review group by brandNUM ) r on b.brandNUM = r.brandNUM
+		    left join (select brandNUM, count(*) as favortotalcnt from favorBrand group by brandNUM) f on b.brandNUM = f.brandNUM 
+		    left join (select brandNUM, thumNailImage  from brandImage) i on b.brandNUM = i.brandNUM 
+		    left join (select brandNUM, brandAddress ,brandLatitude, brandLongitude from brandPosition ) p on b.brandNUM = p.brandNUM 
+		    
+		where membernum = #{value}
+		
+	</select>
+	
+</mapper>
+ 

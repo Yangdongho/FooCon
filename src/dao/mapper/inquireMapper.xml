@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.InquireDao">
+	<insert id="insertInquire" parameterType="map">
+		insert into inquire values('IN'||seq_inquire.nextval,#{MemberNum},#{INQUIRETITLE},#{INQUIRECONTENT},sysdate,'N',null,null)
+	</insert>
+	<update id="updateInquire" parameterType="map">
+		update inquire set inqureReplyStatus ='Y' where inquireNum = #{INQURIENUM}
+	</update>
+	<select id="selectAllUser" parameterType="map" resultType="map">
+		select inquire2.* from(
+		(select rownum as rnum2,inquire1.* from(
+		(
+		(select rownum as rnum1,inquire3.* from(
+		select inquire4.*,ir.INQUIREREPLYCONTENT,ir.INQUIREREPLYREGDATE  from(select i.inquireNum, i.MemberNum, i.inquireTitle, i.inquireContent, to_char(i.INQUIREDATE,'RRRR.MM.DD') as INQUIREDATE,i.inqureReplyStatus from inquire i
+		where i.membernum = #{MEMBERNUM})inquire4
+		left join inquireReply ir on inquire4.inquirenum= ir.inquirenum order by to_number(substr(inquire4.inquirenum,3)))inquire3))order by rnum1 desc
+		)inquire1))inquire2 where rnum2 between #{FIRSTROW} and #{ENDROW}
+	</select>
+	<!-- 관리자 문의사항 모든 정보 불러오기 -->
+	<select id="selectAllAdmin" parameterType="map" resultType="map">
+		select inquire2.* from(
+		(select rownum as rnum2,inquire1.* from(
+		(
+		(select rownum as rnum1,inquire3.* from(
+		select inquire4.*,ir.INQUIREREPLYCONTENT,ir.INQUIREREPLYREGDATE,m.nick,m.memberphone,m.memberemail  from(select i.inquireNum, i.MemberNum, i.inquireTitle, i.inquireContent, to_char(i.INQUIREDATE,'RRRR.MM.DD') as INQUIREDATE,i.inqureReplyStatus from inquire i
+			
+            )inquire4
+		left join inquireReply ir on inquire4.inquirenum= ir.inquirenum
+		left join member m  on inquire4.membernum=m.membernum 
+			<choose>
+			<when test="keyword!=null">
+				where (inquireTitle like '%${keyword}%' or
+	             memberEmail  like '%${keyword}%')
+				<if test="cate!=null">
+					and inqureReplyStatus like '%${cate}%'
+				</if>
+			</when>
+			<otherwise>
+			<if test="cate!=null">
+			 	where inqureReplyStatus like '%${cate}%'
+			</if>
+			</otherwise>	
+			</choose>order by to_number(substr(inquire4.inquirenum,3)))inquire3))order by rnum1 desc
+		)inquire1))inquire2 where rnum2 between #{FIRSTROW} and #{ENDROW}
+		
+	</select>
+	<!-- 관리자 문의 상세보기 -->
+	<select id="selectOneAdmin" parameterType="string" resultType="map">
+	select inquire2.* from(select inquire1.*,ir.INQUIREREPLYCONTENT,ir.INQUIREREPLYREGDATE from(select i.inquireNum, i.MemberNum, i.inquireTitle, i.inquireContent, to_char(i.INQUIREDATE,'RRRR.MM.DD') as INQUIREDATE,i.inqureReplyStatus,m.memberemail,m.memberphone,m.nick
+	from inquire i, member m where i.membernum=m.membernum)inquire1
+	left join INQUIREREPLY ir on inquire1.inquirenum=ir.INQUIRENUM)inquire2 where inquire2.inquirenum=#{INQUIRENUM}
+	</select>
+	<select id="inquireCount" parameterType="String" resultType="int">
+		select count(*) from inquire where MemberNum=#{MemberNum}
+		
+	</select>
+	
+	<select id="inquireCountAdmin" parameterType="map"  resultType="int">
+		select COUNT(*) from (select i.inquireTitle,i.inqureReplyStatus,m.memberemail from inquire i , member m where i.membernum = m.membernum)
+			<choose>
+			<when test="keyword!=null">
+				where (inquireTitle like '%${keyword}%' or
+	             memberEmail  like '%${keyword}%')
+				<if test="cate!=null">
+					and inqureReplyStatus like '%${cate}%'
+				</if>
+			</when>
+			<otherwise>
+			<if test="cate!=null">
+			 	where inqureReplyStatus like '%${cate}%'
+			</if>
+			</otherwise>	
+			</choose>
+			
+			
+	</select>
+</mapper>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.PointDao">
+	<select id="selectAllAdmin" parameterType="map" resultType="map">
+		 select * from(select point2.*,rownum as rnum2 from 
+		(select point1.*,rownum as rnum from
+		(select  p.POINTSEPARATION,p.membernum,p.ordernum,p.brandnum,p.pointnum,p.pointamount,to_char(p.pointdate,'RRRR.MM.DD')as pointdate,m.pointtotal,m.memberemail,m.nick,o.delivregicheck,o.usedpoint,o.ordernumber from pointhistory p
+		left join member m on m.membernum=p.membernum
+		left join orderinfo o on p.ordernum = o.ordernum 
+		<if test="keyword!= null">
+			where memberEmail  like '%${keyword}%'
+		</if>
+		order by p.pointdate)
+		point1 order by rnum desc)point2 )
+		where rnum2 between #{FIRSTROW} and #{ENDROW}
+	</select>
+	<select id="selectAllMenu" parameterType="String" resultType="map">
+		select od.brandmenunum,bm.menuname from orderdetail od
+		inner join brandmenu bm on od.brandmenunum=bm.brandmenunum where od.ordernum = #{ORDERNUM}
+	</select>
+	<select id="selectAllUser" parameterType="map" resultType="map">
+		select * from(select point2.*,rownum as rnum2 from 
+		(select point1.*,rownum as rnum from
+		(select p.POINTSEPARATION,p.membernum,p.ordernum,p.brandnum,p.pointnum,p.pointamount,to_char(p.pointdate,'RRRR.MM.DD')as pointdate,m.pointtotal,m.memberemail,m.nick,o.delivregicheck,o.usedpoint,b.brandname from pointhistory p
+		left join member m on m.membernum=p.membernum
+		left join orderinfo o on p.ordernum = o.ordernum
+		left join brand b on p.brandnum = b.brandnum order by p.pointdate)
+		point1 where point1.membernum=#{MEMBERNUM}order by rnum desc)point2 )
+		where rnum2 between #{FIRSTROW} and #{ENDROW}
+	</select>
+	<select id="UserTotalPoint" parameterType="String" resultType="map">
+		select pointtotal from member where membernum= #{MEMBERNUM}
+	</select>
+
+	<select id="pointCount" parameterType="map" resultType="int">
+		select count(*) from (select p.* ,m.pointtotal,m.memberemail,m.nick,o.DELIVREGICHECK,o.usedpoint from pointhistory p
+		left join member m on m.membernum=p.membernum
+		left join orderinfo o on p.ordernum = o.ordernum order by p.pointdate) where membernum =#{MEMBERNUM}
+		<if test="keyword!= null">
+			 	 and memberEmail  like '%${keyword}%'
+		</if>
+	</select>
+	<select id="pointCountAdmin" parameterType="map" resultType="int">
+		select count(*) from (select p.* ,m.pointtotal,m.memberemail,m.nick,o.DELIVREGICHECK,o.usedpoint,o.ordernum from pointhistory p
+			left join member m on m.membernum=p.membernum
+			left join orderinfo o on p.ordernum = o.ordernum 
+			order by p.pointdate) 
+		<if test="keyword!= null">
+			 	 where memberEmail  like '%${keyword}%'
+		</if>
+	</select>
+	
+</mapper>

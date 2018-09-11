@@ -1,0 +1,52 @@
+@charset "UTF-8";
+
+/* 공지사항 뷰페이지 */
+.notice-list-area {width:100%; text-align: left;}
+
+.submenu-list{display:inline-block !important; border:1px solid #ccc; margin-bottom:20px;}
+.submenu-list a{
+	display:inline-block !important; text-align:center; float:left;
+	padding:10px 25px;  border-right:1px solid #ccc; cursor: pointer;
+}
+.submenu-list a:last-child{border-right:none;}
+.submenu-list a:first-child{background-color:#fff; font-weight:500;}
+a :hover{
+	text-decoration: none !important;
+}
+a:hover, a:focus {
+    color: black !important;
+    text-decoration:none!important;
+}
+
+input[type="file"] {
+    display: inline-block;
+    apperance: none;
+  	-webkit-apperance: none;
+}
+form{width:100%; margin-top:10px; position: relative;}
+form > #input{
+	width:100% ; height:100% ; padding:4px 8px ; background-color:#fff ;
+	border:1px solid #ddd ; font-size:1.5em ; display: inline-block; font-weight:400; margin-bottom: 10px;
+}
+form > ul {width:100%; margin-top:10px; margin-bottom: 10px;}
+form > ul li{float:left; padding-right:30px; text-indent:3px;}
+form > ul li:last-child{padding-right:0px;}
+
+form .notice_view_option{width:100%; margin-top:10px; vertical-align: middle;}
+form .option {float:left;  padding-right:30px;}
+form .option label{text-indent:3px; margin-right:5px;}
+form .option select{
+	width:150px; padding:5px 18px 6px 12px; height:32px;
+	border:1px solid #d6d7d8; border-radius:2px;
+}
+h2 {font-size:23px; font-weight:400; padding:9px 0 4px; line-height:29px; text-indent:1px;}
+form > input[type=submit]{
+	display:block; width:220px; height:45px; margin:0 auto; 
+	margin-top:20px; text-decoration:none; font-weight:600; 
+	border:1px solid #ccc; border-radius:2px; background:#f7f7f7; text-shadow:none; 
+	font-size:13px; line-height:normal; cursor:pointer; outline:0; 
+}
+
+
+
+

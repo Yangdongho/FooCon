@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.OrderDao">
+
+
+	<select id="selectNonMemberOrderList" resultType="map" parameterType="map">
+		
+		 select oi.ordernum,oi.brandnum,oi.ordernumber,oi.DELIVREGICHECK,oi.PAYMENTAMOUNT , oi.CANCLESTATUS , oi.APPROVALDATE ,oi.nonmembernum,
+      	  to_char(oi.ORDERDATE,'RRRR.MM.DD') as ORDERDATE , oi.CARDNUMBER,b.brandname, b.brandPhone, bp.brandaddress 
+		    from orderInfo oi 
+		        inner join brand b on oi.brandnum = b.brandnum
+		        inner join brandPosition bp on b.brandnum = bp.brandnum 
+			 where oi.ordernumber = #{ordernumber}
+	
+	</select>
+	
+	<select id="selectNonMemberOrderInfo" resultType="map" parameterType="String">
+		select oi.ordernumber, oi.PAYMENTAMOUNT , oi.USEDPOINT, oi.payment,oi.DELIVREGICHECK ,nm.nonmemberphone as memberphone,nm.nonmemberemail,r.resername, d.deliaddress
+			from orderinfo oi
+			inner join nonmember nm on oi.nonmembernum = nm.nonmembernum
+			  left join reservation r on oi.orderNUM = r.orderNUM
+			        left join delivery d on oi.orderNUM = d.orderNUM
+				 where oi.ordernumber = #{ordernumber}
+	</select>
+	
+
+	<select id="selectOrderList" resultType="map" parameterType="map">
+				select * from (
+		select a.*,rownum as rnum  from 
+		(
+		    select oi.ordernum,oi.brandnum,oi.ordernumber,oi.DELIVREGICHECK,
+		    oi.PAYMENTAMOUNT , oi.CANCLESTATUS , oi.APPROVALDATE , to_char(oi.ORDERDATE,'RRRR/MM/DD') as ORDERDATE , oi.CARDNUMBER,
+		    b.brandname, b.brandPhone,b.BRANDOWNERNUM, bp.brandaddress 
+		    from orderInfo oi 
+		        inner join brand b on oi.brandnum = b.brandnum
+		        inner join brandPosition bp on b.brandnum = bp.brandnum
+		    where oi.membernum = #{memberNum} and
+		    
+		     <choose>
+		     	<when test="CHECK!=null">
+		     		<choose>
+		     			<when test="CHECK == 1 ">
+			    	  		oi.DELIVREGICHECK = 'R'
+			  	  		</when>
+						<otherwise>
+			    	  		oi.DELIVREGICHECK = 'D'
+			    		</otherwise>
+		     		</choose>
+		     	</when>
+				<otherwise>	
+				     1=1
+				</otherwise>
+			</choose>
+		    
+		     order by to_number(substr(oi.ordernum,2)) desc
+		) a
+		)
+		where rnum between #{firstRow} and #{endRow}
+		
+	</select>
+	
+	<select id="selectOrder" resultType="map" parameterType="String">
+		select oi.ordernumber, oi.PAYMENTAMOUNT , oi.USEDPOINT, oi.payment,oi.DELIVREGICHECK ,m.memberphone,r.resername, d.deliaddress
+			from orderinfo oi
+			inner join member m on oi.membernum = m.membernum
+			  left join reservation r on oi.orderNUM = r.orderNUM
+			        left join delivery d on oi.orderNUM = d.orderNUM
+			where oi.ordernumber = #{orderNum}
+	</select>
+	
+	<select id="selectMenuList" resultType="map" parameterType="String">
+		select od.ORDERQUANTITY,bm.menuname,bm.MENUPRICE
+		    from orderDetail  od
+		    inner join brandMenu bm on od.brandmenunum = bm.brandmenunum
+		where od.ordernum = #{ordernum}
+	</select>
+	
+	<select id="countOrder" resultType="int" parameterType="map">
+		select count(*) from orderinfo where MEMBERNUM = #{memberNum}
+		and 
+			  <choose>
+		     	<when test="CHECK!=null">
+		     		<choose>
+		     			<when test="CHECK == 1 ">
+			    	  		DELIVREGICHECK = 'R'
+			  	  		</when>
+						<otherwise>
+			    	  		DELIVREGICHECK = 'D'
+			    		</otherwise>
+		     		</choose>
+		     	</when>
+				<otherwise>	
+				     1=1
+				</otherwise>
+			</choose>
+			
+	</select>
+	
+	
+	<select id="selectReview" parameterType="map" resultType="string">
+		
+		select reviewnum from review 
+  		where memberNUM  = #{memberNUM} and orderNUM = #{orderNUM}
+	</select>
+</mapper>
+
+
+

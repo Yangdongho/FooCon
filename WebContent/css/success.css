@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+/* 로그인 입력 */
+.payment-complete-area {width:100%; text-align: center; padding-top:61px; padding-bottom:265px;}
+.payment_complete_header{width:100%;}
+.payment_complete_header h3{padding:60px 0 80px 0; width:100%; font-size:48px; color:#444;}
+.payment_complete_header p{width:100%; color:#666; margin-top:5px;}
+.payment_complete_body{margin:13px auto 0; width:410px;}
+input{width:100%; border:1px solid #ccc; color:#666; }
+input[type=button]{
+	width:100%; margin-top:13px; padding:20px 0 19px; font-size:18px;
+	background-color:#fff; text-align:center; cursor: pointer;
+}
+.order_btn{background:linear-gradient(to right, #ff1069 0%, #ff493d 100%); color:#fff;}

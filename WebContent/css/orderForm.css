@@ -1,0 +1,159 @@
+@charset "UTF-8";
+
+/* 결제 정보 */
+.payment-area {width:100%; text-align: left; padding-top:61px; position:relative;}
+.payment-area > div{padding-top:38px;}
+.column_left {width:66%; float:left; padding-right:1%;}
+.payment_form{width:100%; position: relative;}
+.item-inner{display:block; position:relative; width:100%;}
+.item-inner > img{
+	float:left; width:42%; position:relative; height:200px;
+	border:1px solid #e5e5e5; overflow:hidden;
+}
+.info-box{float:left; text-align:left; width:58%; padding-left:20px;}
+.title_rap{
+	margin-right:60px; font-size:28px; vertical-align:middle; letter-spacing:-1px; width:100%;
+}
+.txt_rap{margin-top:15px; width:100%;}
+.txt_rap p{font-size: 15px; line-height: 22px;}
+
+/* 배달&예약 정보 */
+.payment_delivery_reservaion{width:100%; margin-top:40px;}
+.payment_tab {width:100%; text-align: center;}
+.payment_tab li {
+	float:left; width:50%; height:49px; line-height:49px;
+	background-color: #ebebeb; cursor:pointer; transition:all 0.3s;
+	border:1px solid #ccc; font-weight: 400; color:#666; 
+}
+.payment_tab li:last-child{border-left:none;}
+.payment_tab li.active {background-color: #fff; border-bottom:none;}
+
+/* 배달 입력폼 */
+.payment_form_list{width:100%; padding-top:50px;}
+.delivery_area{width:100%; padding-top:30px;}
+.delivery_into{width:100%; border-top:1px solid #e5e5e5; padding:30px 0;}
+.payment_subtitle{font-weight: bold; font-size:18px; margin-bottom: 15px;}
+.delivery_form{width:100%; border-collapse:collapse; border-spacing:0;}
+.delivery_form caption{display:none;}
+.delivery_form tbody th{
+	width:13%; line-height:20px; color:#666666;
+	text-align:left; padding-top:10px;   
+}
+.delivery_form tbody td{
+	width:87%; line-height:20px; vertical-align:top; padding-bottom:10px;
+}
+.delivery_form tbody td input{
+	width:100%; line-height:20px; vertical-align:top; padding:6px 12px; 
+}
+.delivery_form tbody td .address{width:85.9%;}
+.delivery_form tbody td .address_btn{
+	font-size:12px; background-color:#ddd; padding:8px 16px 8px;
+	cursor: pointer; width:12%; line-height: 34px; margin-left:10px;
+}
+#sample6_address{margin-bottom:10px;}
+.user_phone{padding-top:10px;}
+
+
+.point_into{width:100%; border-top:1px solid #e5e5e5; padding:30px 0;}
+.point_form{width:100%; border-collapse:collapse; border-spacing:0;}
+.point_form caption{display:none;}
+.point_form tbody th{
+	width:13%; line-height:20px; color:#666666;
+	text-align:left; padding-top:10px;   
+}
+.point_form tbody td{
+	width:87%; line-height:20px; vertical-align:top; padding-bottom:10px;
+}
+.point_form tbody td input{
+	width:30%; line-height:20px; vertical-align:top; padding:6px 12px; text-align: right; 
+}
+.point_btn{
+	font-size:14px; background-color:#ddd; padding:10px 19px 12px;
+	cursor: pointer; width:13%; line-height: 34px; margin:0px 10px;
+}
+.point_form p{font-size:14px; color:#aaa;}
+
+
+.payment_method_into{width:100%; border-top:1px solid #e5e5e5; padding:30px 0;}
+.payment_method{width:100%;}
+/*라디오버튼 디자인 변경 참고사이트
+https://viralpatel.net/blogs/css-radio-button-checkbox-background/*/
+/*실제 라디오버튼 없애기 */
+input[type='radio'] {display: none;}
+/* 가짜 라디오버튼 만들기 */
+input[type='radio'] + label{
+	display: inline-block; width:20%; height:40px; cursor:pointer; text-align:center;
+	line-height:40px; color:#666; border:1px solid #999; margin-right:1%; 
+}
+/* 가짜 라디오버튼 체크했을 때 */
+input[type='radio']:checked + label{color:#ff2d60; border:1px solid #ff2d60;}	
+
+
+.terms_into{width:100%; border-top:1px solid #e5e5e5; padding:30px 0;}
+.terms_form{width:100%;}
+.tems_chk_all {width:100%;}
+.tems_chk_all label {font-weight: 500;}
+.tems_chk {width:100%; margin-top:5px;}
+.tems_chk li{width:100%; margin-top:5px;}
+.tems_chk label {font-size:14px; color:#666;}
+.tems_chk label span {color:#ff2d60;}
+
+
+
+/* 예약 입력폼 */
+.reservation_area{width:100%; padding-top:30px;}
+.necessary_into{width:100%; border-top:1px solid #e5e5e5; padding:30px 0;}
+.necessary_form{width:100%; border-collapse:collapse; border-spacing:0;}
+.necessary_form caption{display:none;}
+.necessary_form tbody th{
+	width:13%; line-height:20px; color:#666666;
+	text-align:left; padding-top:10px;   
+}
+.crrent_time{padding-top:10px;}
+.crrent_time p{padding-bottom:5px;}
+.crrent_time p span{font-weight: 600; font-size:17px;}
+.crrent_time i{font-size:14px; color:#ff2d60;}
+.necessary_form tbody td{
+	width:87%; line-height:20px; vertical-align:top; padding-bottom:10px;
+}
+.necessary_form tbody td input{
+	width:100%; line-height:20px; vertical-align:top; padding:6px 12px; 
+}
+.necessary_form tbody td .phone_certified{width:100%;}
+	
+
+/* 주문내역 */
+.column_right {width:33%; float:right;}
+.payment_bill{width:396px; border:1px solid #ccc; position:fixed;}
+.payment_bill.scroll{top:78px;}
+.payment_bill_head{width:100%; border-bottom:1px solid #ccc;}
+.payment_bill_head p{width:82%; text-align:left; display:inline-block; padding:17px 15px 17px 15px;}
+.payment_bill_body{width:100%; text-align:left; display:inline-block; padding:17px 15px 17px 15px;}
+.payment_bill_body ul{width:100%;}
+.payment_bill_body ul li:first-child{padding-bottom:12px;}
+.payment_bill_body ul li{width:100%; padding:0px 0px 12px 0px;}
+.payment_bill_body ul li div{width:100%;}
+.menu_name{width:78%; text-align: left; display:inline-block; color:#666; line-height: 20px;}
+.menu_price{width:16%; text-align: right; display:inline-block; border:none; font-size:16px;}
+.menu_div i {font-size: 14px;}
+.point_div{padding:10px 0px; border-top:1px solid #ccc;}
+.point_sale{width:74%; text-align: left; display:inline-block; color:#666; line-height: 20px;}
+.point_price{width:20%; text-align: right; display:inline-block; border:none; font-size:16px;}
+.point_div i{font-size: 14px;}
+
+.total_price_payment_btn{width:100%;}
+.total_price_payment_btn > div{width:100%; padding:15px 0;}
+.total_price_txt{width:21%; text-align: left; display:inline-block;}
+.total_price{
+	width:73%; text-align: right; display:inline-block; 
+	font-weight: 600; font-size: 24px; color:#ff2d60; border:none;
+}
+.total_price_payment_btn > div i{font-size: 16px; font-weight: 400; color:#ff2d60;}
+.payment_btn{
+	display:inline-block; width:100%; background-color:#ff2d60; cursor:pointer;
+	padding:10px 16px; text-align:center; font-size:18px; color:#fff; border:1px solid #ff2d60;
+}
+	
+	
+	
+	

@@ -1,0 +1,37 @@
+@charset "UTF-8";
+
+/* 로그인 입력 */
+.login-area {width:100%; text-align: center; padding-top:9.5%;}
+.login_header{
+	padding-top: 5%;
+    margin-bottom: 3.3%;
+    font-size: 34px;}
+.login_header span{font-weight: 600;}
+
+/***************************************************************************************/
+/**************************find_password**********************************/
+.find_password{
+	margin: 2% auto 0;
+    width: 34.2%;
+    padding-bottom: 20.25%;}
+form{width:100%;}
+
+form input{
+	width: 100%;
+    padding: 4.85%;
+    border: 1px solid #ccc;
+    margin-bottom: 3.2%;
+    color: #666;
+    font-size: 15px;
+    background: transparent; 
+}
+form input[type=submit]{
+	width: 100%;
+    margin-top: 3.3%;
+    padding: 4.9% 0 4.6%;
+    font-size: 18px;
+    background: linear-gradient(to right, #ff1069 0%, #ff493d 100%);
+    color: #fff;
+    text-align: center;
+}
+

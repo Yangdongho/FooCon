@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.EventDao">
+	<insert id = "insert" parameterType="map">
+		insert into event values('E'||seq_event.nextval,#{title},sysdate,0
+								<choose>
+									<when test="eventImg !=null">
+										,#{eventImg}
+									</when>
+									<otherwise>
+										,null
+									</otherwise>
+									
+								</choose>
+									
+								,#{thumnail},#{startCalendar},#{endCalendar})
+	</insert>
+	
+	<delete id="delete" parameterType="String">
+		delete from event where eventNum = #{eventNum}
+		
+	</delete>
+	
+	<update id="updateViewCount" parameterType="String">
+		update event set EVENTVIEWCOUNT = EVENTVIEWCOUNT+1
+		where EVENTNUM = #{eventNum}  
+	</update>
+	
+	
+	<update id="update" parameterType="map" >
+		update event set EVENTTITLE = #{title} 
+								<if test="thumnail !=null"> ,EVENTTHUMNAIL = #{thumnail}</if>
+								<if test="eventImg !=null"> ,EVENTUPLOADFILE = #{eventImg}</if>
+						,EVENTSTARTDATE = #{startCalendar}
+						,EVENTENDDATE   = #{endCalendar}
+		where EVENTNUM = #{eventNum}  
+	</update>
+
+	
+	<select id="selectAll" parameterType="map" resultType="map">
+	
+		select rnum,EVENTNUM,EVENTTITLE,to_char(EVENTREGDATE,'RRRR.MM.DD') as EVENTREGDATE,EVENTVIEWCOUNT,EVENTUPLOADFILE,EVENTTHUMNAIL,eventStartDate,eventEndDate from(
+		select rownum as rnum2, EVENTNUM,EVENTTITLE,EVENTREGDATE,EVENTVIEWCOUNT,EVENTUPLOADFILE,EVENTTHUMNAIL,eventStartDate,eventEndDate,rnum from(
+        select * from (
+        select ROWNUM as rnum,EVENTNUM,EVENTTITLE,EVENTREGDATE,EVENTVIEWCOUNT,EVENTUPLOADFILE,EVENTTHUMNAIL,eventStartDate,eventEndDate from (
+          select EVENTNUM,EVENTTITLE,EVENTREGDATE,EVENTVIEWCOUNT,EVENTUPLOADFILE,EVENTTHUMNAIL,eventStartDate,eventEndDate from event
+            where  
+            <choose>
+				<when test="keyword!= null">
+			      	eventTitle like '%${keyword}%'
+			    </when>
+				   <otherwise>
+				    	1=1
+				   </otherwise>
+			</choose>
+             order by to_number(substr(EVENTNUM,2)) )
+             ) order by rnum desc
+             )) 
+		where rnum2 between #{firstRow} and #{endRow}
+
+					
+	</select>
+	
+	<select id="selectOne" parameterType="String" resultType="map">
+		select * from event where eventNum = #{eventNum}
+	</select>
+
+	<select id="countEvent" resultType="int" parameterType="map">
+		select count(*) from event where 
+									<choose>
+										<when test="keyword!= null">
+									      	eventTitle like '%${keyword}%'
+									    </when>
+										<otherwise>
+									    	1=1
+									   	</otherwise>
+									</choose>
+	</select>
+	
+	<select id="userSelectAll" resultType="map" parameterType="map">
+	
+		select * from(
+		    select rownum as rnum,e.* from(
+		            (select * from event order by to_number(substr(EVENTNUM,2))) e
+		        ))
+		where rnum between #{firstRow} and #{endRow}
+			
+	</select>
+
+</mapper>
+
+
+

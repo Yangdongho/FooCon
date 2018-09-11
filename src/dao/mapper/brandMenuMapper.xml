@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.BrandMenuDao">
+
+	<select id="menuCountView" parameterType="map" resultType="int">
+		select count(*) 
+		  from brandMenuView
+	     where brandNUM=#{BRANDNUM}
+	 		   <if test="KEYWORD != null">
+	     	   and (menuName like '%${KEYWORD}%'
+	     	   or menuCode like '%${KEYWORD}%')
+	       	   </if>
+	       	   and menuName is not null
+	       	   and quitMenu = 'N'
+	       	   and MenuTurn != '0'
+	</select>
+	
+	<select id="menuTotalCountView" parameterType="map" resultType="int">
+		select count(*) 
+		  from brandMenuView
+		 where 1=1 
+	           <if test="KEYWORD != null">
+	     	   and (menuName like '%${KEYWORD}%'
+	     	   or menuCode like '%${KEYWORD}%')
+	       	   </if>
+	       	   and menuName is not null
+	       	   and quitMenu = 'N'
+	       	   and MenuTurn != '0'
+	</select>
+	
+	<select id="menuSearchTotalView" parameterType="map" resultType="map">
+			   select *                       
+			     from (select rownum as rnum2,s3.*                       
+			             from (select rownum as rnum1,s2.*
+			                     from (select s1.*
+			                             from (select *
+			                                     from brandMenuView 
+			                                    where 1=1 
+			                                    	<if test="KEYWORD != null"> 
+		                 		  				      and (menuName like '%${KEYWORD}%'
+		                 		  					  or menuCode like '%${KEYWORD}%') 
+ 		                   		  					</if>
+			                    		  			  and menuName is not null
+			                    		  			  and quitMenu = 'N'
+	                                                  and MenuTurn != '0')s1
+			                             order by MenuTurn)s2
+			                     order by rnum1 desc)s3)
+	  		    where rnum2 between #{FIRSTROW} and #{ENDROW}
+	</select>
+	
+	<select id="menuSearchView" parameterType="map" resultType="map">  
+  		      select *                       
+			    from (select rownum as rnum2,s3.*                       
+		       	        from (select rownum as rnum1,s2.*
+		                        from (select s1.*
+		                                from (select *
+		                                        from brandMenuView 
+		                                       where 1=1 
+		                                            <if test="KEYWORD != null">
+		                 		  				   	 and (menuName like '%${KEYWORD}%'
+		                 		  				     or menuCode like '%${KEYWORD}%') 
+		                   		  					</if>
+		                                    		 and menuName is not null
+		                                    		 and quitMenu = 'N'
+		                                    		 and MenuTurn != '0'
+		                                    		 and brandOwnerNUM = #{SEQ})s1
+		                           	   order by MenuTurn)s2
+		                   	   order by rnum1 desc)s3)
+  		   	    where rnum2 between #{FIRSTROW} and #{ENDROW}
+	</select>
+	
+	<update id="menuQuitMenuUpdate" parameterType="map">
+		update brandMenu
+		   set quitMenu=#{QUITMENU}
+		 where brandMenuNUM=#{BRANDMENUNUM}
+	</update>
+	
+	<select id="menuSelectOne" parameterType="string" resultType="map">
+		select * 
+		  from brandMenu		 
+		 where brandMenuNUM=#{BRANDMENUNUM}
+	</select>
+	
+	<select id="menuTurnSelectOne" parameterType="int" resultType="map">
+		select * 
+		  from brandMenu		 
+		 where menuTurn=#{MENUTURN}
+	</select>
+	
+	<insert id="menuInsert" parameterType="map">
+		<selectKey order="BEFORE" keyProperty="BRANDMENUNUM" resultType="string">
+			select 'BM'||seq_brandMenu.nextval from dual
+		</selectKey>
+		insert 
+		  into brandMenu 
+		values (#{BRANDMENUNUM},#{BRANDNUM},null,#{MENUNAME},
+				#{MENUPRICE},seq_menuTurn.nextval,0,'N',null)		 
+	</insert>
+	
+	<update id="menuUpdate" parameterType="map">
+		update brandMenu
+		   set menuCode=#{MENUCODE},
+		   	   menuName=#{MENUNAME},
+		   	   menuPrice=#{MENUPRICE}
+		 where brandMenuNUM=#{BRANDMENUNUM} 		 
+	</update>
+	
+	<update id="menuTotalOrderUpdate" parameterType="map">
+		update brandMenu
+		   set totalOrders=#{TOTALORDERS}
+		 where brandMenuNUM=#{BRANDMENUNUM} 		 
+	</update>
+	
+	<update id="menuUpDownUpdate" parameterType="map">
+		update brandMenu
+		   set menuTurn=#{MENUTURN}
+		 where brandMenuNUM=#{BRANDMENUNUM} 		 
+	</update>
+</mapper>
+
+	

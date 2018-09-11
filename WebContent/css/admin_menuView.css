@@ -1,0 +1,31 @@
+@charset "UTF-8";
+
+/* 메뉴 뷰페이지 */
+.menu-list-area {width:100%; text-align: left;}
+
+form{width:100%; margin-top:10px; position: relative;}
+form > input[type=text]{
+	width:100%; height:100%; padding:4px 8px; background-color:#fff;
+	border:1px solid #ddd; font-size:1.5em; 
+}
+form .menu_view_option{width:100%; margin-top:10px; vertical-align: middle;}
+form .option {float:left;  padding-right:30px; width:100%; margin-top:5px;}
+form .option label{text-indent:3px; margin-right:10px; padding-left:3px;}
+form .option input{
+	width:30%; padding:5px 18px 6px 12px; height:32px;
+	border:1px solid #d6d7d8; border-radius:2px;
+}
+form > input[type=submit]{
+	display:block; width:220px; height:45px; margin:0 auto; 
+	margin-top:20px; text-decoration:none; font-weight:600; 
+	border:1px solid #ccc; border-radius:2px; background:#f7f7f7; text-shadow:none; 
+	font-size:13px; line-height:normal; cursor:pointer; outline:0; 
+}
+textarea{padding:5px 18px 6px 12px;}
+.content_container{padding-bottom: 730px;}
+
+
+
+
+
+

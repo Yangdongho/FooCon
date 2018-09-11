@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.FaqDao">
+	<insert id="insertFaq" parameterType="map">
+		insert into faq values ('F'||seq_faq.nextval,#{title},#{content},sysdate,null,null)
+	</insert>
+	<update id="updateFaq" parameterType="map">
+		update faq set faqTitle=#{title},faqContent=#{content},faqRegDate=sysdate where faqNum=#{faqNum}
+	</update>
+	<delete id="deleteFaq" parameterType="string">
+		delete from faq where faqNum = #{faqNum}
+	</delete>
+	<select id="selectOne" parameterType="string" resultType="map">
+		select faqNum,faqTitle,faqContent,to_char(FAQREGDATE,'RRRR.MM.DD') as FAQREGDATE from faq where faqNum=#{faqNum} 
+	</select>
+	<select id="selectAll"  resultType="map">
+		select rownum as rNum,faqNum,faqTitle,faqContent,to_char(FAQREGDATE,'RRRR.MM.DD') as FAQREGDATE from faq order by rNum
+	</select>
+</mapper>

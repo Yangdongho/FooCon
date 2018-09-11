@@ -1,0 +1,92 @@
+@charset "UTF-8";
+
+/* 로그인 입력 */
+.login-area {width:100%; text-align: center; padding-top:8.6%;}
+.login_header{
+	padding-top: 5%;
+    margin-bottom: 3.3%;
+    font-size: 34px;}
+.login_header span{font-weight: 600;}
+
+/*******************************검토할것************************************************/
+
+.login_tab {margin:30px auto; width:410px;}
+.login_tab li {
+	float:left; width:50%; height:49px; line-height:49px;
+	background-color: #ebebeb; cursor:pointer; transition:all 0.3s;
+	border:1px solid #ccc; 
+}
+.login_tab li:last-child{
+	border-left:none; 
+}
+.login_tab li.active {background-color: #fff; border-bottom:none;}
+
+
+.login_user{margin:30px auto 0; width:410px;}
+
+form{width:100%;}
+
+form #id{margin-top:30px;}
+
+#findPw input{
+	width:100%; padding:20px; border:1px solid #ccc; margin-bottom:13px;
+	color:#666; font-size:15px; background:transparent; 
+}
+
+#findPw .okPW{
+	width:100%; margin-top:13px; padding:20px 0 19px; font-size:18px;
+	background:linear-gradient(to right, #ff1069 0%, #ff493d 100%);
+	color:#fff; text-align:center;
+}
+
+
+#findPw button{
+	width: 9%;
+    margin-top: 13px;
+    padding: 11px 0 11px;
+    font-size: 16px;
+    background: linear-gradient(to right, #ff1069 0%, #ff493d 100%);
+    color: #fff;
+    text-align: center;
+}
+
+
+form .login_option{width:100%; margin-top:10px;}
+form .auto_login{text-align: left; float:left;}
+form .auto_login #ch01{width:auto; border-color:#ff2d60; vertical-align:middle; margin:0;}
+form .auto_login #ch01:checked{border-color:#ff2d60;}
+form .auto_login label{vertical-align:middle; font-weight:300;}
+form .login_link_text{float:right; font-weight:350;}
+form .login_link_join{padding-left:15px; font-weight:350;}
+/*******************************검토할것************************************************/
+
+
+
+/***************************************************************************************/
+/**************************find_password**********************************/
+.find_password{
+	margin: 2% auto 0;
+    width: 34.2%;
+    padding-bottom: 20.25%;}
+    
+form{width:100%;}
+
+#findPw input{
+	width: 100%;
+    padding: 4.85%;
+    border: 1px solid #ccc;
+    margin-bottom: 3.2%;
+    color: #666;
+    font-size: 15px;
+    background: transparent; 
+}
+
+#findPw .okPW{
+	width: 100%;
+    margin-top: 3.3%;
+    padding: 4.9% 0 4.6%;
+    font-size: 18px;
+    background: linear-gradient(to right, #ff1069 0%, #ff493d 100%);
+    color: #fff;
+    text-align: center;
+}

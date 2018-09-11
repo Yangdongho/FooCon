@@ -1,0 +1,39 @@
+@charset "UTF-8";
+
+/* 공지사항 상세페이지 */
+.notice-view-area{width:100%; text-align: center; margin-top:61px;}
+h3{padding:60px; width:100%; font-size:48px; color:#444;}
+
+.view_head{
+	width:100%; border-top:2px solid #333;  
+	border-bottom:1px solid #ececec; background-color:#fff;
+}
+.view_head .title{padding:20px 20px; font-weight: 400; text-align: left; font-size: 24px;}
+.view_head ul{width:100%; padding:0px 22px 20px 20px;}
+.view_head ul li{float:left; padding-right:15px; border-right:1px solid #ccc;}
+.view_head ul li{padding-left:15px;}
+.view_head ul li:first-child{padding-left:0px;}
+.view_head ul li:last-child{border-right:0px;}
+.attachfile_area{width:100%; background-color:#f9f9f9; padding:20px 22px;}
+.attachfile_area p{text-align: left; margint-right:15px; font-weight: 350;}
+.attachfile_area p span{font-weight: 400; margin-right:15px;}
+
+.view_cont{
+	padding:50px 20px; min-height:200px; border-bottom: 1px solid #ddd;
+	line-height:145%; text-align:center; font-weight: 350;
+}
+.view_bottom{width:100%;}
+.view_bottom .notice_prev{width:100%; padding:20px 20px; text-align: left; border-bottom: 1px solid #ddd;}
+.view_bottom .notice_next{width:100%; padding:20px 20px; text-align: left; border-bottom: 1px solid #ddd;}
+.view_bottom .notice_list_btn{
+	font-size:15px; border:1px solid #ff2d60; display:inline-block; color:#ff2d60;
+	min-width:100px; padding:10px 0; margin-top: 30px; text-align:center;
+}
+
+.detailImg{
+	padding-top:50px;
+	width: 1000px	
+}
+
+
+

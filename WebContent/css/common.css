@@ -1,0 +1,78 @@
+@charset "UTF-8";
+h2 {font-size:28px; font-weight:600;}
+/* HEADER */  
+header {
+	width:100%; position:fixed; top:0; left:0; right:0; padding:0 30px;
+	background-color:#fff; border-bottom:1px solid #ddd; z-index:9; 
+}
+nav{
+	height:60px; color:#666;
+}
+.logo {float: left;}
+.logo img{width:96px; margin-top:18px;}
+
+.header_search{
+	position:relative !important; 
+	height:35px !important;  
+	float:left !important; 
+	margin-top:12px !important; 
+	margin-left:30px !important;
+}
+
+.header_search label{
+	width:398px; display:block; position:relative; cursor:pointer;
+}
+
+.header_search label > img{
+	position:absolute; top:6px; left:10px; margin:0 auto; width:22px;
+}
+
+.header_search label > input{
+	background-color:#fff !important; 
+	height:35px !important; 
+	padding-left:33px !important;
+	width:100%; color:#757575 !important; 
+	vertical-align:middle !important; 
+	font-size:13px !important;
+	border:2px solid #ff2d60 !important;
+}
+
+/* .header_search button{ */
+/* 	width:70px; height:35px; position:absolute; top:0; bottom:0; right:0; */
+/* 	background:#ff493d; background:#ff2d60;  */
+/* 	font-size:13px; font-weight:600; color:#fff; text-align:center; cursor:pointer; border:0;  */
+/* } */
+
+.headerSearch {
+	width:70px !important;
+	height:35px !important; 
+	position:absolute !important; 
+	top:0 !important; 
+	bottom:0 !important; 
+	right:0 !important;
+	background:#ff493d !important; 
+	background:#ff2d60 !important; 
+	font-size:13px !important; 
+	font-weight:600 !important; 
+	color:#fff !important; 
+	text-align:center !important; 
+	cursor:pointer !important; 
+	border:0 !important; 
+}
+
+.nav-list {float: right; display: flex;  padding-top:25px;}
+.nav-list li a {justify-content: flex-end; margin-left:40px; position:relative;} 
+
+/* FOOTER */
+footer {width:100%; background-color:#292929; margin-top:60px; color:#aaa; font-size:13px;}
+.footer {padding:25px 0 25px 0;}
+.footer ul {width:100%; font-size:14px; color:#ccc; border-bottom:1px solid #333; padding-bottom:22px;}
+.footer ul li {float:left; cursor:pointer;}
+.footer ul li:before {
+	content:''; display:inline-block; background-color:#666;
+	vertical-align:middle; width:1px; height:12px; margin:0 20px;
+}
+.footer a {color:#ccc;}
+.footer ul li:first-child:before {content:none;}
+.footer-text {margin-top:25px;}
+.footer-text p{line-height: 1.9;}

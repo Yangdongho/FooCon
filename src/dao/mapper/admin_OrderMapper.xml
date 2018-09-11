@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dao.Admin_OrderDao">
+	
+	<select id="selectOrderList" parameterType="map" resultType="map" >
+		 select * from
+			    ( 
+			           select rownum as rnum,o.* from
+			            (    
+			                select o.*,b.brandname,m.memberemail,m.memberphone,nm.NONMEMBEREMAIL,nm.NONMEMBERPHONE from(
+			                           select ORDERNUM,MEMBERNUM,NONMEMBERNUM,BRANDNUM,ORDERNUMBER,DELIVREGICHECK,CANCLESTATUS,PAYMENTAMOUNT,USEDPOINT,to_char(ORDERDATE,'RRRR.MM.DD') as ORDERDATE from orderinfo  
+			                           where 
+			                            		<choose>
+				                            		<when test="category!=null and brandNum!=null">
+				                            			 DELIVREGICHECK = #{category} and BRANDNUM = #{brandNum}
+				                            		</when>
+				                            		<when test="category!=null">
+				                            			 DELIVREGICHECK = #{category}
+				                            		</when>
+				                            		<when test="brandNum!=null">
+				                            			 BRANDNUM = #{brandNum}
+				                            		</when>
+				                            		<otherwise>
+				                            			1=1
+				                            		</otherwise>
+			                            		</choose>
+			                            
+			                                  
+			                )o
+			                left join brand b on o.brandnum = b.brandnum
+			                left join member m on o.membernum = m.membernum 
+							left join nonmember nm on o.NONMEMBERNUM = nm.NONMEMBERNUM 
+			                where
+			            
+                             <choose>
+                           		<when test="keyword!= null">
+                           			m.memberemail like '%${keyword}%' or o.ORDERNUMBER like '%${keyword}%' or nm.NONMEMBEREMAIL like '%${keyword}%'
+                           		</when>
+                            	<otherwise>
+                            		1=1
+                            	</otherwise>
+                            </choose>
+							order by to_number(substr(o.ORDERNUM,2)) desc   
+			            )o
+			     )      
+				where rnum between #{firstRow} and #{endRow}     
+	</select>
+	
+	<select id="selectOrder" resultType="map" parameterType="String">
+			select b.brandname,oi.ordernumber, oi.PAYMENTAMOUNT , oi.USEDPOINT, oi.payment,oi.CARDNUMBER,oi.memo,
+			oi.DELIVREGICHECK , oi.APPROVALDATE ,oi.CANCLESTATUS,
+			to_char(oi.ORDERDATE,'RRRR-MM-DD') as ORDERDATE,m.*,r.resername, d.deliaddress ,d.DELIMEMO,nm.*
+			from orderinfo oi
+			left join member m on oi.membernum = m.membernum
+			  left join reservation r on oi.orderNUM = r.orderNUM
+			        left join delivery d on oi.orderNUM = d.orderNUM
+			               left join brand b on oi.brandnum = b.brandnum
+			                 left join nonmember nm on oi.NONMEMBERNUM = nm.NONMEMBERNUM 
+			where oi.ordernum = #{orderNum}
+
+	</select>
+	
+	<select id="countOrder" parameterType="map" resultType="int">
+		
+		select count(*) from orderinfo o
+        inner join member m on o.membernum = m.membernum
+        where 1=1 
+         
+        
+        <if test="keyword!=null">
+        	and (m.memberemail like '%${keyword}%' or o.ORDERNUMBER like '%${keyword}%')
+        </if>
+        
+        <if test="category!=null">
+        	and o.DELIVREGICHECK = #{category}
+        </if>
+        
+        <if test="brandNum!=null">
+            and o.BRANDNUM = #{brandNum}
+        </if>
+     </select>   
+     
+     
+     <update id="updateMemo" parameterType="map">
+     		update orderinfo set memo = #{memo} where ORDERNUMBER = #{orderNumber}
+     </update>
+     
+     
+     <select id="selectAllOrder" parameterType="String" resultType="map">
+			     	            
+			select oi.ORDERNUMBER, b.brandname, oi.PAYMENTAMOUNT, oi.USEDPOINT,oi.DELIVREGICHECK,oi.CANCLESTATUS,to_char(oi.ORDERDATE,'RRRR.MM.DD') as ORDERDATE
+			from orderinfo oi            
+			left join brand b on oi.brandnum = b.brandnum
+			where
+			<choose>
+				<when test="_parameter != 'MASTER'">
+					oi.brandNum = #{_parameter}
+				</when>
+				<otherwise>
+					1=1
+				</otherwise>
+			</choose>
+			order by to_number(substr(ORDERNUM,2))
+     </select>
+     
+     <select id="selectBrandNum" parameterType="String" resultType="String">
+     	select brandnum from brand where brandownernum = #{brandOwnerNum}
+     </select>
+</mapper>
+
+
+
